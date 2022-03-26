@@ -1,15 +1,15 @@
-import React, { useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { googleAuth, LoginEmail } from "../service/auth_provider";
+import React, { useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { googleAuth, LoginEmail } from '../service/auth_provider';
 
 const Login = () => {
   const inputRefEmail = useRef<HTMLInputElement>(null);
   const inputRefPassword = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
-  const goToHome = () => {
+  const goToMain = () => {
     navigate({
-      pathname: "/",
+      pathname: '/calender',
     });
   };
 
@@ -21,35 +21,57 @@ const Login = () => {
       );
 
       if (!result.ret) alert(result.message);
-      else goToHome();
+      else goToMain();
     }
   };
 
   const handleClickEventGoogle = () => {
-    googleAuth.LoginGoogle("Google");
+    googleAuth.LoginGoogle('Google').then(() => goToMain());
   };
 
   const onkeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === "Enter") {
+    if (e.code === 'Enter') {
       handleClickEventLogin();
     }
   };
 
   return (
-    <section>
-      <div>
-        <input ref={inputRefEmail} type="text" placeholder="e-mail" />
-        <input
-          ref={inputRefPassword}
-          type="text"
-          placeholder="password"
-          onKeyPress={onkeyPress}
-        />
-        <button onClick={handleClickEventLogin}>login</button>
+    <section className='login'>
+      <img className='logo' src='/logo.svg' alt='logo' />
+      <div className='content'>
+        <div className='login_btn'>
+          <div className='input_user'>
+            <div className='email'>
+              <h1>E-mail</h1>
+              <label htmlFor='email'>
+                <img id='email' src='/message.svg' alt='email_icon' />
+                <input ref={inputRefEmail} type='text' placeholder='e-mail' />
+              </label>
+            </div>
+            <div className='pw'>
+              <h1>Password</h1>
+              <label htmlFor='password'>
+                <img src='/lock.svg' alt='pw_icon' />
+                <input
+                  id='password'
+                  ref={inputRefPassword}
+                  type='password'
+                  placeholder='password'
+                  onKeyPress={onkeyPress}
+                />
+                <img src='/eye.svg' alt='eye_icon' />
+              </label>
+            </div>
+          </div>
+          <button onClick={handleClickEventLogin}>Sign In</button>
+        </div>
+        <h1>OR</h1>
+        <button className='google_btn' onClick={handleClickEventGoogle}>
+          <img src='/Google.svg' alt='google_icon' /> Sign in with Google
+        </button>
       </div>
-      <button onClick={handleClickEventGoogle}>Google로 로그인</button>
-      <Link to={"/joinEmail"}>
-        <button>E-mail Join</button>
+      <Link to={'/joinEmail'}>
+        <button className='join_btn'>Create Account</button>
       </Link>
     </section>
   );

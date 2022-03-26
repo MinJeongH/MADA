@@ -58,7 +58,6 @@ class GoogleAuth {
 
   getProvider(providerName:string) {
     if(providerName === 'Google') {
-      console.log('success');
       return new GoogleAuthProvider();
     }
     else throw new Error(`${providerName}의 로그인을 지원하지 않습니다`);
