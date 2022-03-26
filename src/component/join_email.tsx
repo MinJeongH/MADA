@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Join } from '../../service/auth_provider';
+import { Join } from '../service/auth_provider';
 
 const JoinEmail = () => {
   const [clickAgree, setClickAgree] = useState(false);

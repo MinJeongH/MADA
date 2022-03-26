@@ -375,6 +375,68 @@
   }
 }
 
+.map {
+  width: 100vw;
+  height: 100vh;
+  background-color: $colorWhite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  .header {
+    display: flex;
+    width: 80%;
+    height: 70px;
+    align-items: center;
+    justify-content: space-around;
+    background-color: $colorLightBeige;
+    border-radius: 50px;
+    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 30px;
+    .logo {
+      width: 70px;
+      height: auto;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background-color: $colorWhite;
+      width: 50%;
+      height: 40px;
+      border-radius: 10px;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+      input {
+        border: none;
+        width: 80%;
+        height: 95%;
+        font-size: 24px;
+        &:focus {
+          outline: none;
+        }
+      }
+      img {
+        width: 30px;
+        height: auto;
+        cursor: pointer;
+      }
+    }
+    .calender {
+      width: 40px;
+      height: auto;
+      background-color: transparent;
+    }
+  }
+  .add {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    bottom: 50px;
+    right: 130px;
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .home,
   .login,
