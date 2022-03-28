@@ -59,11 +59,11 @@ const Calender = () => {
       pathname: '/map',
     });
   };
-  const goToRecode = () => {
-    nav({
-      pathname: '/Recode',
-    });
-  };
+  // const goToRecode = () => {
+  //   nav({
+  //     pathname: '/Recode',
+  //   });
+  // };
   const goToAdd = () => {
     nav({
       pathname: '/add',
