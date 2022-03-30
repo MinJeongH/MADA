@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './pages.scss';
 import 'react-quill/dist/quill.snow.css';
 import { HexColorPicker } from 'react-colorful';
@@ -16,6 +16,8 @@ const AddContent = () => {
   const nav = useNavigate();
   const location = useLocation();
 
+  const titleRef = useRef<HTMLInputElement>(null);
+
   const [color, setColor] = useState('#edcdbb');
   const [clickColor, setClickColor] = useState(false);
   const [searchResult, setSearchResult] = useState<ICallbackResult[]>([]);
@@ -31,6 +33,17 @@ const AddContent = () => {
     setSelectDate(e.target.value);
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const content = {
+      id: Date.now(),
+      title: titleRef.current?.value,
+      date: selectDate,
+      color: color,
+      text: body,
+    };
+  };
+
   const goToCalender = () => {
     nav({
       pathname: '/calender',
@@ -41,7 +54,6 @@ const AddContent = () => {
       pathname: '/map',
     });
   };
-
   const placesSearch = () => {
     let places = new kakao.maps.services.Places();
     let callback = function (result: ICallbackResult[], status: string) {
@@ -71,7 +83,12 @@ const AddContent = () => {
         <div className='titles'>
           <h3>제목</h3>
           <label className='title' htmlFor='title'>
-            <input type='text' id='title' placeholder='제목을 입력하세요' />
+            <input
+              ref={titleRef}
+              type='text'
+              id='title'
+              placeholder='제목을 입력하세요'
+            />
           </label>
         </div>
         <div className='dates'>
@@ -162,7 +179,7 @@ const AddContent = () => {
         <QuillEditor body={body} handleQuillChange={setBody} />
       </div>
       <div className='buttons'>
-        <button>저장</button>
+        <button onClick={onSubmit}>저장</button>
         <button>취소</button>
       </div>
     </section>
