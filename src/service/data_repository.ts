@@ -1,10 +1,19 @@
-import { getDatabase, ref, set } from 'firebase/database';
+import { database } from './firebase';
+import { ref, set } from 'firebase/database';
 
+interface IContentProps {
+  id: number;
+  title?: string;
+  date: string;
+  place_name: string;
+  place_address: string;
+  text: string;
+}
 
-
-function uploadContent (userId, content) {
-  const db = getDatabase();
-  set(ref(db, 'users/'+userId), {
+export function uploadContent ( userId:string, content:IContentProps) {
+  const db = database;
+  set(ref(db, 'dailyContents/'+ userId + '/' + content.id), {
     content: content
   });
+  console.log("!!");
 }

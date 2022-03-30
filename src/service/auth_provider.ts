@@ -1,5 +1,5 @@
 import { FirebaseError, initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut} from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, User} from "firebase/auth";
 import { firebaseConfig } from "./firebase";
 
 const auth = getAuth();
@@ -9,6 +9,7 @@ const app = initializeApp(firebaseConfig);
 interface ICreateReturn{
   ret:Boolean;
   message:String;
+  user?: User;
 }
 
 export const Join = async (email:string, password:string):Promise<ICreateReturn>=>{
@@ -31,7 +32,8 @@ export const LoginEmail = async (email:string, password:string):Promise<ICreateR
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     return {
       ret: true,
-      message: `반갑습니다 ${userCredential.user}`
+      message: `반갑습니다 ${userCredential.user}`,
+      user: userCredential.user,
     }
   } catch (error) {
     const er = error as FirebaseError;
@@ -49,7 +51,7 @@ export const LoginEmail = async (email:string, password:string):Promise<ICreateR
 class GoogleAuth {
   LoginGoogle(providerName:string) {
     const provider = this.getProvider(providerName);
-    return ( signInWithPopup(auth, provider) )
+    return  (signInWithPopup(auth, provider)) 
   }
 
   LogoutGoogle() {

@@ -11,7 +11,7 @@ import {getDatabase} from "firebase/database";
 export const firebaseConfig = {
   apiKey: "AIzaSyBDR0o-9IdWcPfTgDqdqJV36Deas0YXlqQ",
   authDomain: "mydiary-2cfc2.firebaseapp.com",
-  databaseURL: "http://mydiary-2cfc2.firebaseio.com",
+  databaseURL: "https://mydiary-2cfc2-default-rtdb.firebaseio.com",
   projectId: "mydiary-2cfc2",
   storageBucket: "mydiary-2cfc2.appspot.com",
   messagingSenderId: "694169341785",
@@ -22,4 +22,4 @@ export const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
-export const database = getDatabase();
+export const database = getDatabase(app);

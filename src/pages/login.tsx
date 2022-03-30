@@ -1,3 +1,4 @@
+import { User } from 'firebase/auth';
 import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { googleAuth, LoginEmail } from '../service/auth_provider';
@@ -6,11 +7,9 @@ const Login = () => {
   const inputRefEmail = useRef<HTMLInputElement>(null);
   const inputRefPassword = useRef<HTMLInputElement>(null);
 
-  const navigate = useNavigate();
-  const goToMain = () => {
-    navigate({
-      pathname: '/calender',
-    });
+  const nav = useNavigate();
+  const goToMain = (userId?: User | string) => {
+    nav('/calender', { state: { id: userId } });
   };
 
   const handleClickEventLogin = async () => {
@@ -21,12 +20,12 @@ const Login = () => {
       );
 
       if (!result.ret) alert(result.message);
-      else goToMain();
+      else goToMain(result.user);
     }
   };
 
   const handleClickEventGoogle = () => {
-    googleAuth.LoginGoogle('Google').then(() => goToMain());
+    googleAuth.LoginGoogle('Google').then((data) => goToMain(data.user.uid));
   };
 
   const onkeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {

@@ -1,12 +1,15 @@
 import moment from 'moment';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './pages.scss';
 
 const Calender = () => {
   const [getMoment, setMoment] = useState(moment());
   const [selectDay, setSelectDay] = useState('');
+
   const nav = useNavigate();
+  const location = useLocation();
+  const states = location.state as unknown as any;
 
   const today = getMoment;
   const weekText = ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
@@ -86,7 +89,7 @@ const Calender = () => {
   //   });
   // };
   const goToAdd = () => {
-    nav('/addcontent', { state: selectDay });
+    nav('/addcontent', { state: { id: states.id, selectDays: selectDay } });
   };
 
   return (

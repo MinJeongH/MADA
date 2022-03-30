@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { HexColorPicker } from 'react-colorful';
 import { useLocation, useNavigate } from 'react-router-dom';
 import QuillEditor from '../components/quill_editor';
+import { uploadContent } from '../service/data_repository';
 
 const { kakao } = window as any;
 
@@ -15,7 +16,7 @@ interface ICallbackResult {
 const AddContent = () => {
   const nav = useNavigate();
   const location = useLocation();
-
+  const states = location.state as unknown as any;
   const titleRef = useRef<HTMLInputElement>(null);
 
   const [color, setColor] = useState('#edcdbb');
@@ -23,25 +24,26 @@ const AddContent = () => {
   const [searchResult, setSearchResult] = useState<ICallbackResult[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [placeName, setPlaceName] = useState('');
+  const [placeAddress, setPlaceAddress] = useState('');
   const [placeOn, setPlaceOn] = useState(false);
-  const [selectDate, setSelectDate] = useState(
-    location.state as unknown as string
-  );
+  const [selectDate, setSelectDate] = useState(states.selectDays);
   const [body, setBody] = useState('');
 
   const selectedDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectDate(e.target.value);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = () => {
     const content = {
       id: Date.now(),
       title: titleRef.current?.value,
       date: selectDate,
       color: color,
+      place_name: placeName,
+      place_address: placeAddress,
       text: body,
     };
+    uploadContent(states.id, content);
   };
 
   const goToCalender = () => {
@@ -163,6 +165,7 @@ const AddContent = () => {
                         onClick={() => {
                           setPlaceOn(true);
                           setPlaceName(item.place_name);
+                          setPlaceAddress(item.address_name);
                         }}
                       >
                         {item.place_name}
