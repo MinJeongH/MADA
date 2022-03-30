@@ -12,6 +12,11 @@ const Map = () => {
       pathname: '/calender',
     });
   };
+  const goToAddcontent = () => {
+    nav({
+      pathname: '/addcontent',
+    });
+  };
 
   useEffect(() => {
     let mapContainer = document.getElementById('map');
@@ -72,7 +77,12 @@ const Map = () => {
         />
       </div>
       <div id='map' style={{ width: '100vw', height: '100vh' }}></div>
-      <img className='add' src='/content_add.svg' alt='add_icon' />
+      <img
+        className='add'
+        src='/content_add.svg'
+        alt='add_icon'
+        onClick={goToAddcontent}
+      />
     </section>
   );
 };

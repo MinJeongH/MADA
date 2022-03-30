@@ -18,7 +18,7 @@ function App() {
           <Route path='/joinEmail' element={<JoinEmail />} />
           <Route path='/calender' element={<Calender />} />
           <Route path='/map' element={<Map />} />
-          <Route path='/add' element={<AddContent />} />
+          <Route path='/addcontent' element={<AddContent />} />
         </Routes>
       </BrowserRouter>
     </div>

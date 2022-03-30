@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
 import './pages.scss';
 import 'react-quill/dist/quill.snow.css';
 import { HexColorPicker } from 'react-colorful';
+import { useLocation, useNavigate } from 'react-router-dom';
+import QuillEditor from '../components/quill_editor';
 
 const { kakao } = window as any;
 
@@ -12,46 +13,34 @@ interface ICallbackResult {
 }
 
 const AddContent = () => {
+  const nav = useNavigate();
+  const location = useLocation();
+
   const [color, setColor] = useState('#edcdbb');
   const [clickColor, setClickColor] = useState(false);
   const [searchResult, setSearchResult] = useState<ICallbackResult[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [placeName, setPlaceName] = useState('');
   const [placeOn, setPlaceOn] = useState(false);
+  const [selectDate, setSelectDate] = useState(
+    location.state as unknown as string
+  );
+  const [body, setBody] = useState('');
 
-  const modules = {
-    toolbar: [
-      //[{ 'font': [] }],
-      [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
-      ],
-      ['link', 'image'],
-      [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
-      ['clean'],
-    ],
+  const selectedDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectDate(e.target.value);
   };
-  const formats = [
-    //'font',
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
-    'align',
-    'color',
-    'background',
-  ];
+
+  const goToCalender = () => {
+    nav({
+      pathname: '/calender',
+    });
+  };
+  const goToMap = () => {
+    nav({
+      pathname: '/map',
+    });
+  };
 
   const placesSearch = () => {
     let places = new kakao.maps.services.Places();
@@ -71,8 +60,13 @@ const AddContent = () => {
 
   return (
     <section className='add_content'>
-      <img src='/logo.svg' alt='logo_icon' className='logo' />
-      <img src='/map.svg' alt='map_icon' className='map' />
+      <img
+        src='/logo.svg'
+        alt='logo_icon'
+        className='logo'
+        onClick={goToCalender}
+      />
+      <img src='/map.svg' alt='map_icon' className='map' onClick={goToMap} />
       <div className='inputs'>
         <div className='titles'>
           <h3>제목</h3>
@@ -85,17 +79,25 @@ const AddContent = () => {
           <label htmlFor='date'>
             <input
               className='date'
-              type='text'
+              type='date'
               id='date'
-              value={'YYYY-MM-DD'}
-              readOnly
+              value={selectDate}
+              onChange={selectedDate}
             />
           </label>
         </div>
         <div className='colors'>
           <h3>배경색</h3>
           <div className='color_code'>
-            {color}
+            {clickColor ? (
+              <input
+                type='text'
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+              />
+            ) : (
+              color
+            )}
             <img
               src='/palette.svg'
               alt='palette_icon'
@@ -103,12 +105,26 @@ const AddContent = () => {
               onClick={() => setClickColor((prev) => !prev)}
             />
           </div>
+          {clickColor && (
+            <HexColorPicker
+              className='color_picker'
+              color={color}
+              onChange={setColor}
+            />
+          )}
         </div>
         <div className='places'>
           <h3>장소</h3>
           <label className='place' htmlFor='place'>
             {placeOn ? (
-              <div>{placeName}</div>
+              <div className='choose_place'>
+                {placeName}{' '}
+                <img
+                  src='/search.svg'
+                  alt='search_icon'
+                  onClick={() => setPlaceOn(false)}
+                />
+              </div>
             ) : (
               <>
                 <input
@@ -141,21 +157,13 @@ const AddContent = () => {
             )}
           </label>
         </div>
-        {clickColor && (
-          <HexColorPicker
-            className='color_picker'
-            color={color}
-            onChange={setColor}
-          />
-        )}
       </div>
-      <div className='editor'>
-        <ReactQuill
-          style={{ width: '1000px', height: '400px' }}
-          theme='snow'
-          modules={modules}
-          formats={formats}
-        />
+      <div className='editor_box'>
+        <QuillEditor body={body} handleQuillChange={setBody} />
+      </div>
+      <div className='buttons'>
+        <button>저장</button>
+        <button>취소</button>
       </div>
     </section>
   );

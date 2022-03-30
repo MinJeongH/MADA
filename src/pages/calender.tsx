@@ -5,6 +5,7 @@ import './pages.scss';
 
 const Calender = () => {
   const [getMoment, setMoment] = useState(moment());
+  const [selectDay, setSelectDay] = useState('');
   const nav = useNavigate();
 
   const today = getMoment;
@@ -26,26 +27,48 @@ const Calender = () => {
         .map((data, index) => {
           let monthBackgroundColor;
           let daycolor = 'black';
+          let selectBorder;
+          let boxHeight = '140px';
           let days = today
             .clone()
             .startOf('year')
             .week(week)
             .startOf('week')
             .add(index, 'day');
+
+          if (weeks.length > 5) boxHeight = '116px';
+
           if (days.day() === 0) daycolor = '#d71515';
           else if (days.day() === 6) daycolor = '#003fe0';
+
           if (moment().format('YYYYMMDD') === days.format('YYYYMMDD')) {
             monthBackgroundColor = '#edcdbb';
           }
+
           if (today.format('MM') !== days.format('MM')) {
             daycolor = '#9e9e9e';
           }
+
+          if (selectDay) {
+            if (selectDay === days.format('YYYY-MM-DD')) {
+              selectBorder = '2px solid #e26f1e';
+            }
+          } else {
+            setSelectDay(today.format('YYYY-MM-DD'));
+          }
+
           return (
             <td
               key={index}
               style={{
                 color: daycolor,
                 backgroundColor: monthBackgroundColor,
+                border: selectBorder,
+                boxSizing: 'border-box',
+                height: boxHeight,
+              }}
+              onClick={() => {
+                setSelectDay(days.format('YYYY-MM-DD'));
               }}
             >
               <span>{days.format('D')}</span>
@@ -55,9 +78,7 @@ const Calender = () => {
     });
   };
   const goToMap = () => {
-    nav({
-      pathname: '/map',
-    });
+    nav('/map');
   };
   // const goToRecode = () => {
   //   nav({
@@ -65,9 +86,7 @@ const Calender = () => {
   //   });
   // };
   const goToAdd = () => {
-    nav({
-      pathname: '/add',
-    });
+    nav('/addcontent', { state: selectDay });
   };
 
   return (
