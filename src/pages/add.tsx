@@ -28,9 +28,13 @@ const AddContent = () => {
   const [placeOn, setPlaceOn] = useState(false);
   const [selectDate, setSelectDate] = useState(states.selectDays);
   const [body, setBody] = useState('');
+  const [yearMonth, setYearMonth] = useState(
+    Number(selectDate.replace(/\-/g, '').substring(0, 6))
+  );
 
   const selectedDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectDate(e.target.value);
+    setYearMonth(Number(selectDate.replace(/\-/g, '').substring(0, 6)));
   };
 
   const onSubmit = () => {
@@ -42,14 +46,14 @@ const AddContent = () => {
       place_name: placeName,
       place_address: placeAddress,
       text: body,
+      year_month: yearMonth,
     };
     uploadContent(states.id, content);
+    goToCalender();
   };
 
   const goToCalender = () => {
-    nav({
-      pathname: '/calender',
-    });
+    nav('/calender', { state: { id: states.id } });
   };
   const goToMap = () => {
     nav({
@@ -183,7 +187,7 @@ const AddContent = () => {
       </div>
       <div className='buttons'>
         <button onClick={onSubmit}>저장</button>
-        <button>취소</button>
+        <button onClick={goToCalender}>취소</button>
       </div>
     </section>
   );

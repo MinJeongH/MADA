@@ -1,11 +1,18 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { downloadContent, IContent } from '../service/data_repository';
 import './pages.scss';
+
+interface IGetContent {
+  [id: string]: IContent;
+}
 
 const Calender = () => {
   const [getMoment, setMoment] = useState(moment());
   const [selectDay, setSelectDay] = useState('');
+  const [content, setContent] = useState<IGetContent>();
+  const [contentKey, setContentKey] = useState<string[]>([]);
 
   const nav = useNavigate();
   const location = useLocation();
@@ -13,6 +20,7 @@ const Calender = () => {
 
   const today = getMoment;
   const weekText = ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
+  const currentMonth = Number(today.format('YYYYMM'));
 
   const firstWeek = today.clone().startOf('month').week();
   const lastWeek =
@@ -60,6 +68,18 @@ const Calender = () => {
             setSelectDay(today.format('YYYY-MM-DD'));
           }
 
+          // let result;
+
+          // if (content) {
+          //   for (let i = 0; i < contentKey.length; i++) {
+          //     result = (
+          //       <div>
+          //         {content[contentKey[i]].title} {content[contentKey[i]].date}
+          //       </div>
+          //     );
+          //   }
+          // }
+
           return (
             <td
               key={index}
@@ -75,22 +95,36 @@ const Calender = () => {
               }}
             >
               <span>{days.format('D')}</span>
+              {() => {
+                if (content) {
+                  for (let i = 0; i < contentKey.length; i++) {
+                    <div>
+                      {content[contentKey[i]].title}{' '}
+                      {content[contentKey[i]].date}
+                    </div>;
+                  }
+                }
+              }}
+              {/* {content &&
+                content[contentKey[0]].date === days.format('YYYY-MM-DD') &&
+                result} */}
             </td>
           );
         });
     });
   };
+
   const goToMap = () => {
     nav('/map');
   };
-  // const goToRecode = () => {
-  //   nav({
-  //     pathname: '/Recode',
-  //   });
-  // };
   const goToAdd = () => {
     nav('/addcontent', { state: { id: states.id, selectDays: selectDay } });
   };
+
+  useEffect(() => {
+    downloadContent(states.id, setContent, currentMonth);
+    if (content) setContentKey(Object.keys(content));
+  }, [states.id, setContent, currentMonth, setContentKey]);
 
   return (
     <section className='calender'>
