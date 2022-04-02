@@ -297,7 +297,8 @@
 
 .calender {
   width: 100vw * 0.8;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -351,6 +352,13 @@
       th {
         width: 140px;
         height: 30px;
+        color: $colorBlack;
+        &.sun {
+          color: red;
+        }
+        &.sat {
+          color: blue;
+        }
       }
     }
     tbody {
@@ -360,7 +368,33 @@
         vertical-align: top;
         td {
           width: 140px;
+          height: 140px;
           padding: 5px 0 0 8px;
+          box-sizing: border-box;
+          &.sunday {
+            color: red;
+          }
+          &.saturday {
+            color: blue;
+          }
+          &.not_now_month {
+            color: $colorGrey;
+          }
+          &.today {
+            background-color: $colorBeige;
+          }
+          &.select_day {
+            border: 2px solid $colorBrown;
+          }
+          .daily_content {
+            width: 125px;
+            height: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-sizing: border-box;
+            padding-top: 2px;
+            color: $colorWhite;
+          }
         }
       }
     }

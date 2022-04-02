@@ -8,111 +8,31 @@ interface IGetContent {
   [id: string]: IContent;
 }
 
-const Calender = () => {
-  const [getMoment, setMoment] = useState(moment());
-  const [selectDay, setSelectDay] = useState('');
-  const [content, setContent] = useState<IGetContent>();
-  const [contentKey, setContentKey] = useState<string[]>([]);
+interface IDaysInfo {
+  days: Number;
+  isNowMonth: boolean;
+  isSun: boolean;
+  isSat: boolean;
+  isToday: boolean;
+  isSelectday: boolean;
+  selectedDays: string;
+}
 
+const Calender = () => {
   const nav = useNavigate();
   const location = useLocation();
   const states = location.state as unknown as any;
-
-  const today = getMoment;
   const weekText = ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
-  const currentMonth = Number(today.format('YYYYMM'));
 
-  const firstWeek = today.clone().startOf('month').week();
-  const lastWeek =
-    today.clone().endOf('month').week() === 1
-      ? 53
-      : today.clone().endOf('month').week();
-  const weeks = Array.from(
-    { length: lastWeek - firstWeek + 1 },
-    (v, i) => i + firstWeek
+  const [today, setToday] = useState(moment());
+  const [selectDay, setSelectDay] = useState(today.format('YYYY-MM-DD'));
+  const [content, setContent] = useState<IGetContent>();
+  const [contentKey, setContentKey] = useState<string[]>([]);
+  const [currentMonth, setCurrentMonth] = useState(
+    Number(today.format('YYYYMM'))
   );
-  const weekArr = () => {
-    return weeks.map((week) => {
-      return Array(7)
-        .fill(0)
-        .map((data, index) => {
-          let monthBackgroundColor;
-          let daycolor = 'black';
-          let selectBorder;
-          let boxHeight = '140px';
-          let days = today
-            .clone()
-            .startOf('year')
-            .week(week)
-            .startOf('week')
-            .add(index, 'day');
-
-          if (weeks.length > 5) boxHeight = '116px';
-
-          if (days.day() === 0) daycolor = '#d71515';
-          else if (days.day() === 6) daycolor = '#003fe0';
-
-          if (moment().format('YYYYMMDD') === days.format('YYYYMMDD')) {
-            monthBackgroundColor = '#edcdbb';
-          }
-
-          if (today.format('MM') !== days.format('MM')) {
-            daycolor = '#9e9e9e';
-          }
-
-          if (selectDay) {
-            if (selectDay === days.format('YYYY-MM-DD')) {
-              selectBorder = '2px solid #e26f1e';
-            }
-          } else {
-            setSelectDay(today.format('YYYY-MM-DD'));
-          }
-
-          // let result;
-
-          // if (content) {
-          //   for (let i = 0; i < contentKey.length; i++) {
-          //     result = (
-          //       <div>
-          //         {content[contentKey[i]].title} {content[contentKey[i]].date}
-          //       </div>
-          //     );
-          //   }
-          // }
-
-          return (
-            <td
-              key={index}
-              style={{
-                color: daycolor,
-                backgroundColor: monthBackgroundColor,
-                border: selectBorder,
-                boxSizing: 'border-box',
-                height: boxHeight,
-              }}
-              onClick={() => {
-                setSelectDay(days.format('YYYY-MM-DD'));
-              }}
-            >
-              <span>{days.format('D')}</span>
-              {() => {
-                if (content) {
-                  for (let i = 0; i < contentKey.length; i++) {
-                    <div>
-                      {content[contentKey[i]].title}{' '}
-                      {content[contentKey[i]].date}
-                    </div>;
-                  }
-                }
-              }}
-              {/* {content &&
-                content[contentKey[0]].date === days.format('YYYY-MM-DD') &&
-                result} */}
-            </td>
-          );
-        });
-    });
-  };
+  const [weeks, setWeeks] = useState([0]);
+  const [daysArr, setDaysArr] = useState<IDaysInfo[][]>();
 
   const goToMap = () => {
     nav('/map');
@@ -122,9 +42,69 @@ const Calender = () => {
   };
 
   useEffect(() => {
+    setCurrentMonth(Number(today.format('YYYYMM')));
+  }, [today]);
+
+  useEffect(() => {
+    const firstWeek = today.clone().startOf('month').week();
+    const lastWeek =
+      today.clone().endOf('month').week() === 1
+        ? 53
+        : today.clone().endOf('month').week();
+    const allWeek = Array.from(
+      { length: lastWeek - firstWeek + 1 },
+      (v, i) => i + firstWeek
+    );
+    setWeeks(allWeek);
+  }, [today]);
+
+  useEffect(() => {
+    const weekArr: IDaysInfo[][] = weeks.map((week) =>
+      Array(7)
+        .fill(0)
+        .map((data, index) => {
+          let isNowMonth;
+          let isSun;
+          let isSat;
+          let isToday;
+          let isSelectday;
+          let dates = today
+            .clone()
+            .startOf('year')
+            .week(week)
+            .startOf('week')
+            .add(index, 'day');
+          let days = Number(dates.format('D'));
+          let selectedDays = dates.format('YYYY-MM-DD');
+          isSun = dates.day() === 0 ? true : false;
+          isSat = dates.day() === 6 ? true : false;
+          isToday =
+            dates.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')
+              ? true
+              : false;
+          isNowMonth = dates.format('MM') === today.format('MM') ? true : false;
+          isSelectday = dates.format('YYYY-MM-DD') === selectDay ? true : false;
+          return {
+            days,
+            isNowMonth,
+            isSun,
+            isSat,
+            isToday,
+            isSelectday,
+            selectedDays,
+          };
+        })
+    );
+    setDaysArr(weekArr);
+  }, [today, weeks, selectDay]);
+
+  useEffect(() => {
     downloadContent(states.id, setContent, currentMonth);
+  }, [states.id, setContent, currentMonth]);
+
+  useEffect(() => {
     if (content) setContentKey(Object.keys(content));
-  }, [states.id, setContent, currentMonth, setContentKey]);
+  }, [content]);
 
   return (
     <section className='calender'>
@@ -136,7 +116,7 @@ const Calender = () => {
           src='/arrow.svg'
           alt='last_month'
           onClick={() => {
-            setMoment(getMoment.clone().subtract(1, 'month'));
+            setToday(today.clone().subtract(1, 'month'));
           }}
         />
         <span>{today.format('YYYY.MM')}</span>
@@ -145,25 +125,57 @@ const Calender = () => {
           src='/arrow.svg'
           alt='next_month'
           onClick={() => {
-            setMoment(getMoment.clone().add(1, 'month'));
+            setToday(today.clone().add(1, 'month'));
           }}
         />
       </div>
       <table>
         <thead>
           <tr>
-            {weekText.map((v) => {
-              let weekcolor = 'black';
-              if (v === 'SUN') weekcolor = '#d71515';
-              else if (v === 'SAT') weekcolor = '#003fe0';
-              return <th style={{ color: weekcolor }}>{v}</th>;
-            })}
+            {weekText.map((v) => (
+              <th
+                className={`week_name ${v === 'SUN' && 'sun'} ${
+                  v === 'SAT' && 'sat'
+                }`}
+              >
+                {v}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {weekArr().map((v) => {
-            return <tr>{v}</tr>;
-          })}
+          {daysArr?.map((v) => (
+            <tr>
+              {v.map((v) => (
+                <td
+                  className={`days ${v.isSun && 'sunday'} ${
+                    v.isSat && 'saturday'
+                  } 
+                  ${!v.isNowMonth && 'not_now_month'} 
+                  ${v.isToday && 'today'}
+                  ${v.isSelectday && 'select_day'}`}
+                  onClick={() => setSelectDay(v.selectedDays)}
+                >
+                  <span>{v.days}</span>
+                  {contentKey
+                    .filter(
+                      (key) => content && content[key]?.date === v.selectedDays
+                    )
+                    .map((key) => (
+                      <div
+                        key={key}
+                        className='daily_content'
+                        style={{
+                          backgroundColor: `${content![key].color}`,
+                        }}
+                      >
+                        {content![key].title}
+                      </div>
+                    ))}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
       <img
