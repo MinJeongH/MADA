@@ -11,6 +11,8 @@ const { kakao } = window as any;
 interface ICallbackResult {
   address_name: string;
   place_name: string;
+  x: string;
+  y: string;
 }
 
 const AddContent = () => {
@@ -25,6 +27,8 @@ const AddContent = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [placeName, setPlaceName] = useState('');
   const [placeAddress, setPlaceAddress] = useState('');
+  const [geocodeX, setGeocodeX] = useState<number>(0);
+  const [geocodeY, setGeocodeY] = useState<number>(0);
   const [placeOn, setPlaceOn] = useState(false);
   const [selectDate, setSelectDate] = useState(states.selectDays);
   const [body, setBody] = useState('');
@@ -47,6 +51,8 @@ const AddContent = () => {
       place_address: placeAddress,
       text: body,
       year_month: yearMonth,
+      x: geocodeX,
+      y: geocodeY,
     };
     uploadContent(states.id, content);
     goToCalender();
@@ -56,23 +62,20 @@ const AddContent = () => {
     nav('/calender', { state: { id: states.id } });
   };
   const goToMap = () => {
-    nav({
-      pathname: '/map',
-    });
+    nav('/map', { state: { id: states.id } });
   };
   const placesSearch = () => {
     let places = new kakao.maps.services.Places();
     let callback = function (result: ICallbackResult[], status: string) {
-      console.log(status);
       if (status === kakao.maps.services.Status.OK) {
         setSearchResult(result.slice(0, 5));
+        console.log(result);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         alert('검색결과가 없습니다.');
       } else if (status === kakao.maps.services.Status.ERROR) {
         alert('문제가 발생하였습니다.');
       }
     };
-    console.log(searchKeyword);
     places.keywordSearch(searchKeyword, callback);
   };
 
@@ -170,6 +173,8 @@ const AddContent = () => {
                           setPlaceOn(true);
                           setPlaceName(item.place_name);
                           setPlaceAddress(item.address_name);
+                          setGeocodeX(Number(item.x));
+                          setGeocodeY(Number(item.y));
                         }}
                       >
                         {item.place_name}

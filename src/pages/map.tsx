@@ -1,33 +1,52 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { downloadContentMap, IContent } from '../service/data_repository';
 import './pages.scss';
 
 const { kakao } = window as any;
 
+interface IGetContent {
+  [id: string]: IContent;
+}
+
 const Map = () => {
   const nav = useNavigate();
+  const location = useLocation();
+  const states = location.state as unknown as any;
+
+  const [content, setContent] = useState<IGetContent>();
+  const [contentKey, setContentKey] = useState<string[]>([]);
 
   const goToCalender = () => {
-    nav({
-      pathname: '/calender',
+    nav('/calender', {
+      state: { id: states.id },
     });
   };
   const goToAddcontent = () => {
-    nav({
-      pathname: '/addcontent',
+    nav('/addcontent', {
+      state: { id: states.id, selectDays: moment().format('YYYY-MM-DD') },
     });
   };
 
   useEffect(() => {
+    downloadContentMap(states.id, setContent);
+  }, [states.id, setContent]);
+
+  useEffect(() => {
+    if (content) setContentKey(Object.keys(content));
+  }, [content]);
+
+  useEffect(() => {
     let mapContainer = document.getElementById('map');
     let mapOption = {
-      center: new kakao.maps.LatLng(37.365264512305174, 127.10676860117488),
-      level: 3,
+      center: new kakao.maps.LatLng(37.586643474146, 127.174180045525),
+      level: 12,
     };
     let map = new kakao.maps.Map(mapContainer, mapOption);
 
     let imageSrc = '/marker.svg';
-    let imageSize = new kakao.maps.Size(64, 69);
+    let imageSize = new kakao.maps.Size(30, 30);
     let imageOption = { offset: new kakao.maps.Point(27, 69) };
 
     let markerImage = new kakao.maps.MarkerImage(
@@ -35,31 +54,25 @@ const Map = () => {
       imageSize,
       imageOption
     );
-    let markerPosition = new kakao.maps.LatLng(
-      37.365264512305174,
-      127.10676860117488
-    );
 
-    let marker = new kakao.maps.Marker({
-      position: markerPosition,
-      image: markerImage,
+    contentKey.forEach((key) => {
+      let div_content = document.createElement('p');
+      if (content) {
+        div_content.innerHTML = content[key].title!;
+        let marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(content[key].y, content[key].x),
+          image: markerImage,
+          map: map,
+        });
+        marker.setMap(map);
+        let infowindow = new kakao.maps.InfoWindow({
+          position: new kakao.maps.LatLng(content[key].y, content[key].x),
+          content: div_content.outerHTML,
+        });
+        infowindow.open(map, marker);
+      }
     });
-
-    marker.setMap(map);
-
-    let iwContent = '<div style="padding:5px;">Hello World!</div>';
-    let iwPosition = new kakao.maps.LatLng(
-      37.365264512305174,
-      127.10676860117488
-    );
-
-    let infowindow = new kakao.maps.InfoWindow({
-      position: iwPosition,
-      content: iwContent,
-    });
-
-    infowindow.open(map, marker);
-  }, []);
+  }, [contentKey, content]);
 
   return (
     <section className='map_container'>

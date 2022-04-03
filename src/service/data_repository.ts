@@ -10,6 +10,8 @@ export interface IContent {
   place_address?: string;
   text: string;
   year_month?: number;
+  x: number;
+  y: number;
 }
 
 export function uploadContent ( userId:string, content:IContent) {
@@ -23,12 +25,22 @@ export function uploadContent ( userId:string, content:IContent) {
     place_address: content.place_address,
     text: content.text,
     year_month: content.year_month,
+    x: content.x,
+    y: content.y
   });
 }
 
 export function downloadContent (userId:string, setContent:any, year_month:number) {
   const db = database;
   const getDataRef = query(ref(db, userId + '/DailyContents/'), orderByChild('year_month'), equalTo(year_month))
+  onValue(getDataRef, (snapshot)=>{
+    setContent(snapshot.val())
+  })
+}
+
+export function downloadContentMap (userId:string, setContent:any) {
+  const db = database;
+  const getDataRef = query(ref(db, userId + '/DailyContents/'), orderByChild('year_month'))
   onValue(getDataRef, (snapshot)=>{
     setContent(snapshot.val())
   })

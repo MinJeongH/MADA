@@ -21,7 +21,7 @@ interface IDaysInfo {
 const Calender = () => {
   const nav = useNavigate();
   const location = useLocation();
-  const states = location.state as unknown as any;
+  const states = location.state as any;
   const weekText = ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
 
   const [today, setToday] = useState(moment());
@@ -35,10 +35,18 @@ const Calender = () => {
   const [daysArr, setDaysArr] = useState<IDaysInfo[][]>();
 
   const goToMap = () => {
-    nav('/map');
+    nav('/map', { state: { id: states.id } });
   };
   const goToAdd = () => {
     nav('/addcontent', { state: { id: states.id, selectDays: selectDay } });
+  };
+  const goToContentView = (event: React.MouseEvent<HTMLDivElement>) => {
+    const e = event.target as HTMLDivElement;
+    content &&
+      e.dataset.key &&
+      nav('/contentView', {
+        state: { id: states.id, content: content[e.dataset.key] },
+      });
   };
 
   useEffect(() => {
@@ -168,8 +176,10 @@ const Calender = () => {
                         style={{
                           backgroundColor: `${content![key].color}`,
                         }}
+                        onClick={goToContentView}
+                        data-key={key}
                       >
-                        {content![key].title}
+                        <p data-key={key}>{content![key].title}</p>
                       </div>
                     ))}
                 </td>

@@ -389,11 +389,24 @@
           .daily_content {
             width: 125px;
             height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 20px;
-            text-align: center;
             box-sizing: border-box;
+            margin-top: 5px;
             padding-top: 2px;
             color: $colorWhite;
+            font-size: 18px;
+            cursor: pointer;
+            p {
+              margin: 0;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
           }
         }
       }
@@ -633,12 +646,87 @@
   }
 }
 
+.content_view {
+  width: 100vw * 0.8;
+  height: auto;
+  min-height: 100vh;
+  background-color: $colorWhite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+  .logo {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    left: 30px;
+    top: 15px;
+    cursor: pointer;
+  }
+  .map {
+    position: absolute;
+    width: 60px;
+    height: auto;
+    right: 5px;
+    top: 10px;
+    cursor: pointer;
+    background-color: transparent;
+  }
+  .title_date {
+    display: flex;
+    width: 80%;
+    height: 50px;
+    color: $colorWhite;
+    border-radius: 40px;
+    font-size: 28px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 100px;
+    .title {
+      margin-left: 30px;
+    }
+    .date {
+      margin-right: 25px;
+      font-size: 20px;
+    }
+  }
+  .text {
+    width: 80%;
+    height: auto;
+    min-height: 800px;
+    background-color: $colorLightGrey;
+    margin: 30px 0;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    padding-left: 15px;
+  }
+  .place {
+    width: 80%;
+    height: 50px;
+    color: $colorWhite;
+    display: flex;
+    border-radius: 40px;
+    font-size: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    .address {
+      margin-left: 25px;
+    }
+    .place_name {
+      margin-right: 25px;
+    }
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .home,
   .login,
   .join_email,
   .calender,
-  .add_content {
+  .add_content,
+  .content_view {
     width: 100vw;
   }
 }
