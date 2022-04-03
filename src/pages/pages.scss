@@ -486,8 +486,14 @@
     z-index: 10;
     cursor: pointer;
   }
-  #map {
-    z-index: 1;
+  .overlay {
+    background-color: $colorBeige;
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    .content_title {
+      cursor: pointer;
+    }
   }
 }
 

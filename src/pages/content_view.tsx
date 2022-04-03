@@ -10,7 +10,6 @@ export default function ContentView() {
   const nav = useNavigate();
   const location = useLocation();
   const states = location.state as IGetContent;
-  console.log(states);
 
   const goToCalender = () => {
     nav('/calender', { state: { id: states.id } });
