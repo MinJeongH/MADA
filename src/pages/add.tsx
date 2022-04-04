@@ -69,7 +69,6 @@ const AddContent = () => {
     let callback = function (result: ICallbackResult[], status: string) {
       if (status === kakao.maps.services.Status.OK) {
         setSearchResult(result.slice(0, 5));
-        console.log(result);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         alert('검색결과가 없습니다.');
       } else if (status === kakao.maps.services.Status.ERROR) {
@@ -122,7 +121,7 @@ const AddContent = () => {
                 onChange={(e) => setColor(e.target.value)}
               />
             ) : (
-              color
+              <span>{color}</span>
             )}
             <img
               src='/palette.svg'

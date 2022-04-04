@@ -63,7 +63,8 @@ export default function QuillEditor({ body, handleQuillChange }: IQuillProps) {
   return (
     <div
       style={{
-        width: '1000px',
+        width: 'auto',
+        maxWidth: '1500px',
         height: 'auto',
         minHeight: '300px',
         maxHeight: '1500px',
@@ -72,7 +73,7 @@ export default function QuillEditor({ body, handleQuillChange }: IQuillProps) {
       <div
         ref={quillElement}
         style={{
-          width: '1000px',
+          width: 'auto',
           height: 'auto',
           minHeight: '300px',
         }}

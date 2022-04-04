@@ -84,14 +84,12 @@ const Calender = () => {
             .add(index, 'day');
           let days = Number(dates.format('D'));
           let selectedDays = dates.format('YYYY-MM-DD');
-          isSun = dates.day() === 0 ? true : false;
-          isSat = dates.day() === 6 ? true : false;
+          isSun = dates.day() === 0;
+          isSat = dates.day() === 6;
           isToday =
-            dates.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')
-              ? true
-              : false;
-          isNowMonth = dates.format('MM') === today.format('MM') ? true : false;
-          isSelectday = dates.format('YYYY-MM-DD') === selectDay ? true : false;
+            dates.format('YYYY-MM-DD') === moment().format('YYYY-MM-DD');
+          isNowMonth = dates.format('MM') === today.format('MM');
+          isSelectday = dates.format('YYYY-MM-DD') === selectDay;
           return {
             days,
             isNowMonth,

@@ -1,5 +1,5 @@
 import { FirebaseError, initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, User} from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, getRedirectResult, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, User} from "firebase/auth";
 import { firebaseConfig } from "./firebase";
 
 const auth = getAuth();
@@ -49,11 +49,11 @@ export const LoginEmail = async (email:string, password:string):Promise<ICreateR
 }
 
 class GoogleAuth {
-  LoginGoogle(providerName:string) {
+  async LoginGoogle(providerName:string)  {
     const provider = this.getProvider(providerName);
-    return  (signInWithPopup(auth, provider)) 
+    await signInWithRedirect(auth, provider);
   }
-
+  
   LogoutGoogle() {
     signOut(auth);
   }
