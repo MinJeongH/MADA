@@ -1,5 +1,5 @@
 import { FirebaseError, initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, getRedirectResult, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, User} from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, User} from "firebase/auth";
 import { firebaseConfig } from "./firebase";
 
 const auth = getAuth();
@@ -53,7 +53,7 @@ class GoogleAuth {
     const provider = this.getProvider(providerName);
     await signInWithRedirect(auth, provider);
   }
-  
+
   LogoutGoogle() {
     signOut(auth);
   }

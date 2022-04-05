@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './pages.scss';
 import 'react-quill/dist/quill.snow.css';
-import { HexColorPicker } from 'react-colorful';
 import { useLocation, useNavigate } from 'react-router-dom';
 import QuillEditor from '../components/quill_editor';
 import { uploadContent } from '../service/data_repository';
@@ -13,6 +12,11 @@ interface ICallbackResult {
   place_name: string;
   x: string;
   y: string;
+}
+
+interface IColorArr {
+  color: string;
+  checking: boolean;
 }
 
 const AddContent = () => {
@@ -35,6 +39,20 @@ const AddContent = () => {
   const [yearMonth, setYearMonth] = useState(
     Number(selectDate.replace(/\-/g, '').substring(0, 6))
   );
+  const [checkColor, setCheckColor] = useState<IColorArr[]>([
+    { color: '#f8b195', checking: false },
+    { color: '#99b898', checking: false },
+    { color: '#f67280', checking: false },
+    { color: '#6c5b7b', checking: false },
+    { color: '#feceab', checking: false },
+    { color: '#2a363b', checking: false },
+    { color: '#a8e6ce', checking: false },
+    { color: '#a8a7a7', checking: false },
+    { color: '#006c84', checking: false },
+    { color: '#fe4365', checking: false },
+    { color: '#c4dfe6', checking: false },
+    { color: '#eed8c9', checking: false },
+  ]);
 
   const selectedDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectDate(e.target.value);
@@ -131,11 +149,41 @@ const AddContent = () => {
             />
           </div>
           {clickColor && (
-            <HexColorPicker
-              className='color_picker'
-              color={color}
-              onChange={setColor}
-            />
+            <div className='color_picker'>
+              {checkColor.map((v, idx) => (
+                <div
+                  className='color_circle'
+                  style={{ backgroundColor: `${v.color}` }}
+                  onClick={() => {
+                    setColor(v.color);
+                    setTimeout(() => {
+                      setClickColor(false);
+                    }, 750);
+                  }}
+                  key={idx}
+                >
+                  <label htmlFor={`agree-${idx}`}>
+                    <input
+                      type='checkbox'
+                      name='check'
+                      id={`agree-${idx}`}
+                      checked={v.checking}
+                      onChange={() =>
+                        setCheckColor((prev) => {
+                          const newVal = prev.map((item) => ({
+                            ...item,
+                            checking: false,
+                          }));
+                          newVal[idx].checking = true;
+                          return newVal;
+                        })
+                      }
+                    />
+                    <span></span>
+                  </label>
+                </div>
+              ))}
+            </div>
           )}
         </div>
         <div className='places'>

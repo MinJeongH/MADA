@@ -1,9 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Join } from '../service/auth_provider';
 
+interface IClickEvent {
+  emailClick: boolean;
+  pwClick: boolean;
+  checkClick: boolean;
+}
+
 const JoinEmail = () => {
   const [clickAgree, setClickAgree] = useState(false);
+  const [clickPwView, setClickPwView] = useState(false);
+  const [ripple, setRipple] = useState(false);
+  const [clickEvent, setClickEvent] = useState<IClickEvent>({
+    emailClick: false,
+    pwClick: false,
+    checkClick: false,
+  });
 
   const inputRefEmail = useRef<HTMLInputElement>(null);
   const inputRefPassword = useRef<HTMLInputElement>(null);
@@ -17,46 +30,104 @@ const JoinEmail = () => {
   };
 
   const handleClickEvent = async () => {
+    setRipple(true);
+    setTimeout(() => {
+      setRipple(false);
+    }, 800);
     if (clickAgree === true) {
-      if (inputRefEmail.current && inputRefPassword.current) {
-        const result = await Join(
-          inputRefEmail.current.value,
-          inputRefPassword.current?.value
-        );
+      setClickEvent((prev) => {
+        const newVal = { ...prev, emailClick: false, pwClick: false };
+        newVal.checkClick = false;
+        return newVal;
+      });
 
-        if (!result.ret) alert(result.message);
-        else goToSuccess();
+      if (inputRefEmail.current?.value === '') {
+        setClickEvent((prev) => {
+          const newVal = { ...prev, checkClick: false, pwClick: false };
+          newVal.emailClick = true;
+          return newVal;
+        });
+      } else if (inputRefEmail.current?.value) {
+        setClickEvent((prev) => {
+          const newVal = { ...prev, checkClick: false, pwClick: false };
+          newVal.emailClick = false;
+          return newVal;
+        });
+
+        if (inputRefPassword.current?.value === '') {
+          setClickEvent((prev) => {
+            const newVal = { ...prev, checkClick: false, emailClick: false };
+            newVal.pwClick = true;
+            return newVal;
+          });
+        } else if (inputRefPassword.current?.value) {
+          setClickEvent((prev) => {
+            const newVal = { ...prev, checkClick: false, emailClick: false };
+            newVal.pwClick = false;
+            return newVal;
+          });
+
+          const result = await Join(
+            inputRefEmail.current.value,
+            inputRefPassword.current?.value
+          );
+          if (!result.ret) alert(result.message);
+          else goToSuccess();
+        }
       }
-    } else alert('정보 저장에 동의하여 주십시오');
+    } else {
+      setClickEvent((prev) => {
+        const newVal = { ...prev, emailClick: false, pwClick: false };
+        newVal.checkClick = true;
+        return newVal;
+      });
+    }
   };
+
+  // useEffect(() => setRipple(false), [setRipple]);
 
   return (
     <section className='join_email'>
       <img className='logo' src='/logo.svg' alt='logo_icon' />
       <div className='inputs'>
-        <div className='email'>
+        <div className={`email ${clickEvent.emailClick && 'bordered_email'}`}>
           <h1>E-mail</h1>
           <label htmlFor='email'>
             <img id='email' src='/message.svg' alt='email_icon' />
             <input ref={inputRefEmail} type='text' placeholder='e-mail' />
           </label>
         </div>
-        <div className='pw'>
+        <div className={`pw ${clickEvent.pwClick && 'bordered_pw'}`}>
           <h1>Password</h1>
           <label htmlFor='password'>
             <img src='/lock.svg' alt='pw_icon' />
             <input
               id='password'
               ref={inputRefPassword}
-              type='password'
+              type={clickPwView ? 'text' : 'password'}
               placeholder='password'
             />
-            <img src='/eye.svg' alt='eye_icon' />
-          </label>{' '}
+            {clickPwView ? (
+              <img
+                className='eye_view'
+                src='/eye_view.svg'
+                alt='eye_icon'
+                onClick={() => setClickPwView((prev) => !prev)}
+              />
+            ) : (
+              <img
+                src='/eye.svg'
+                alt='eye_icon'
+                onClick={() => setClickPwView((prev) => !prev)}
+              />
+            )}
+          </label>
         </div>
       </div>
       <div className='select'>
-        <div className='check_btn'>
+        <div
+          className={`check_btn ${clickEvent.checkClick && 'bordered_check'}`}
+        >
           <label htmlFor='agree'>
             <input
               type='checkbox'
@@ -71,7 +142,13 @@ const JoinEmail = () => {
             동의합니다.
           </h3>
         </div>
-        <button onClick={handleClickEvent}>Create Account</button>
+        {clickEvent.emailClick && <h2>이메일을 입력하세요</h2>}
+        {clickEvent.pwClick && <h2>비밀번호를 입력하세요</h2>}
+        {clickEvent.checkClick && <h2>약관을 체크해주세요</h2>}
+        <button onClick={handleClickEvent}>
+          Create Account
+          {ripple && <div className='circle'></div>}
+        </button>
       </div>
     </section>
   );
