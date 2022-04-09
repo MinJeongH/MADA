@@ -68,6 +68,7 @@ export default function QuillEditor({ body, handleQuillChange }: IQuillProps) {
         height: 'auto',
         minHeight: '300px',
         maxHeight: '1500px',
+        backgroundColor: '#f6f6f6',
       }}
     >
       <div
@@ -76,6 +77,7 @@ export default function QuillEditor({ body, handleQuillChange }: IQuillProps) {
           width: 'auto',
           height: 'auto',
           minHeight: '300px',
+          backgroundColor: '#f6f6f6',
         }}
       ></div>
     </div>

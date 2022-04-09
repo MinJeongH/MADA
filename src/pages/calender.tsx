@@ -1,7 +1,8 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { downloadContent, IContent } from '../service/data_repository';
+import { googleAuth } from '../service/auth_provider';
+import { IContent, requestContent } from '../service/data_repository';
 import './pages.scss';
 
 interface IGetContent {
@@ -49,6 +50,10 @@ const Calender = () => {
       });
   };
 
+  const clickEventLogout = () => {
+    googleAuth.LogoutGoogle();
+    nav('/');
+  };
   useEffect(() => {
     setCurrentMonth(Number(today.format('YYYYMM')));
   }, [today]);
@@ -105,7 +110,7 @@ const Calender = () => {
   }, [today, weeks, selectDay]);
 
   useEffect(() => {
-    downloadContent(states.id, setContent, currentMonth);
+    requestContent(states.id, setContent, currentMonth);
   }, [states.id, setContent, currentMonth]);
 
   useEffect(() => {
@@ -114,8 +119,17 @@ const Calender = () => {
 
   return (
     <section className='calender'>
-      <img className='logo' src='/logo.svg' alt='logo_icon' />
+      <img
+        className='logo'
+        src='/logo.svg'
+        alt='logo_icon'
+        onClick={clickEventLogout}
+      />
+      <p className='logout' onClick={clickEventLogout}>
+        로그아웃
+      </p>
       <img className='map' src='/map.svg' alt='map_icon' onClick={goToMap} />
+      <p className='go_map'>지도 이동</p>
       <div className='month'>
         <img
           className='last'

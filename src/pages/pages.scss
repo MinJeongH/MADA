@@ -54,20 +54,20 @@
   button {
     border: none;
     color: $colorWhite;
-    background-color: $colorBrown;
+    background-color: $colorBtnBlue;
     font-size: 36px;
     padding: 10px 45px;
     border-radius: 50px;
     margin: 30px 0 100px 0;
     cursor: pointer;
-    box-shadow: 0px 5px 10px $colorDarkBrown;
+    box-shadow: 0px 5px 10px $colorGrey;
     transition: all 360ms ease-in-out;
     &:hover {
-      box-shadow: 0px 10px 20px -5px $colorDarkBrown;
+      box-shadow: 0px 10px 20px -5px $colorGrey;
       transform: scale(1.05);
     }
     &:active {
-      box-shadow: 0px 4px 8px $colorDarkBrown;
+      box-shadow: 0px 4px 8px $colorGrey;
       transform: scale(0.98);
     }
   }
@@ -77,131 +77,264 @@
   width: 100vw * 0.8;
   height: auto;
   min-height: 100vh;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $colorBackgroundWhite;
-  .logo {
-    width: 200px;
-    height: auto;
-    display: flex;
-    margin: 50px 0;
-  }
-  .content {
+  background-color: $colorBackgroundPink;
+  .login_background {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 60%;
-    .login_btn {
+    z-index: 1;
+    .logo {
+      width: 200px;
+      height: auto;
       display: flex;
+      margin: 50px 0;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      width: 880px;
-      justify-content: space-between;
-      .input_user {
+      justify-content: space-evenly;
+      width: 100%;
+      height: 60%;
+      margin-top: 90px;
+      .login_btn {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        height: 130px;
+        width: 880px;
         justify-content: space-between;
-        .email,
-        .pw {
+        position: relative;
+        .input_user {
           display: flex;
+          position: relative;
+          flex-direction: column;
+          align-items: center;
+          height: 150px;
           justify-content: space-between;
-          width: 620px;
-          h1 {
-            margin: 0;
-            font-size: 32px;
-            font-weight: 200;
-          }
-          label {
-            width: 450px;
-            height: 45px;
-            background-color: $colorBeige;
-            border-radius: 30px;
+          .email,
+          .pw {
             display: flex;
-            align-items: center;
-            img {
-              width: auto;
-              height: 35px;
-              margin: 0 25px;
-            }
-            input {
-              border: none;
-              background-color: $colorBeige;
-              height: 40px;
-              font-size: 24px;
+            justify-content: space-between;
+            width: 620px;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            h1 {
+              margin: 0;
+              font-size: 32px;
               font-weight: 200;
-              margin-right: 40px;
-              &:focus {
-                outline: none;
+            }
+            label {
+              width: 450px;
+              height: 45px;
+              background-color: $colorWhite;
+              border-radius: 30px;
+              display: flex;
+              align-items: center;
+              box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
+              transition: all 300ms ease-in-out;
+              img {
+                width: auto;
+                height: 35px;
+                margin: 0 25px;
               }
+              .lock {
+                height: 32px;
+                margin: 0 30px;
+              }
+              .eye_view {
+                width: auto;
+                height: 23px;
+                margin: 1px 20px 0 20px;
+              }
+              .eye {
+                margin: 0 20px;
+              }
+              input {
+                border: none;
+                background-color: transparent;
+                height: 40px;
+                font-size: 24px;
+                font-weight: 200;
+                margin-right: 40px;
+                &:focus {
+                  outline: none;
+                }
+              }
+              &:focus-within {
+                box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+                transform: scale(1.02);
+              }
+            }
+            &.bordered_email {
+              border: 2px solid $colorRed;
+              border-radius: 20px;
+            }
+            &.bordered_pw {
+              border: 2px solid $colorRed;
+              border-radius: 20px;
             }
           }
         }
+        button {
+          width: 200px;
+          height: 130px;
+          border: none;
+          border-radius: 20px;
+          background-color: $colorBtnBlue;
+          color: $colorWhite;
+          font-size: 44px;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 2px 4px darkgray;
+          transition: all 0.2s ease-in;
+          z-index: 1;
+          .circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            background-color: $colorWhite;
+            opacity: 0;
+            width: 10px;
+            height: 10px;
+            z-index: 3;
+            animation-name: ripple;
+            animation-duration: 1s;
+            animation-timing-function: ease-in;
+          }
+          &:hover {
+            transform: scale(1.01);
+            box-shadow: 0 6px 4px darkgray;
+          }
+          &.button_ani {
+            animation-name: motion;
+            animation-duration: 400ms;
+          }
+        }
+        h2 {
+          position: absolute;
+          bottom: -40px;
+          right: 35px;
+          font-size: 16px;
+          font-weight: 400;
+          color: $colorRed;
+        }
       }
-      button {
-        width: 200px;
-        height: 130px;
-        border: none;
-        border-radius: 20px;
-        background-color: $colorBrown;
+      h1 {
+        font-weight: 200;
+        font-size: 28px;
+        margin: 50px;
+      }
+      .google_btn {
+        background-color: $colorBtnGrey;
         color: $colorWhite;
-        font-size: 44px;
+        border: none;
+        border-radius: 30px;
+        height: 58px;
+        width: 370px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        font-size: 32px;
+        font-weight: 100;
+        margin: 0 0 50px 0;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 2px 4px darkgray;
+        transition: all 0.2s ease-in;
+        z-index: 1;
+        img {
+          height: 30px;
+        }
+        .circle {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          background-color: $colorWhite;
+          opacity: 0;
+          width: 10px;
+          height: 10px;
+          z-index: 3;
+          animation-name: ripple;
+          animation-duration: 1s;
+          animation-timing-function: ease-in;
+        }
+        &:hover {
+          transform: scale(1.01);
+          box-shadow: 0 6px 4px darkgray;
+        }
+        &:active {
+          transform: scale(0.93);
+          background-color: $colorBtnBlue;
+        }
       }
     }
-    h1 {
-      font-weight: 200;
-      font-size: 28px;
-      margin: 50px;
-    }
-    .google_btn {
-      background-color: $colorBrown;
-      color: $colorWhite;
-      border: none;
-      border-radius: 30px;
-      height: 58px;
-      width: 370px;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      font-size: 32px;
-      font-weight: 100;
-      margin: 0 0 50px 0;
-      cursor: pointer;
-      img {
-        height: 30px;
+    a {
+      text-decoration: none;
+      .join_btn {
+        border: none;
+        font-size: 28px;
+        font-weight: 600;
+        background-color: transparent;
+        margin-bottom: 40px;
+        color: $colorBlack;
+        position: relative;
+        cursor: pointer;
+        transition: all 350ms ease-in-out;
+        z-index: 2;
+        &:before {
+          content: '';
+          height: 3px;
+          width: 0;
+          left: 0;
+          bottom: 0;
+          position: absolute;
+          background: $colorBlack;
+          transition: 0.4s;
+        }
+        &:hover {
+          &:before {
+            width: 100%;
+          }
+        }
+        &:active {
+          transform: scale(1.12);
+        }
       }
     }
-  }
-  .join_btn {
-    border: none;
-    font-size: 28px;
-    background-color: $colorBackgroundWhite;
-    margin-bottom: 40px;
-    cursor: pointer;
-  }
-  .spinner {
-    width: 15em;
-    height: 15em;
-    border-radius: 50%;
-    border: 30px solid $colorGrey;
-    border-top: 30px solid $colorBeige;
-    animation: spin 2s linear infinite;
-    margin-top: 80px;
-  }
-  .spinner_text {
-    margin: 100px 0;
-    font-size: 30px;
-  }
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
+    &.login_spin {
+      filter: blur(3px);
     }
-    100% {
-      transform: rotate(360deg);
+  }
+  .spinner_background {
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .spinner {
+      width: 15em;
+      height: 15em;
+      border-radius: 50%;
+      border: 30px solid $colorGrey;
+      border-top: 30px solid $colorDarkPink;
+      animation: spin 2s linear infinite;
+      margin-top: 150px;
+      z-index: 20;
+    }
+    .spinner_text {
+      margin: 100px 0;
+      font-size: 30px;
+      z-index: 20;
+      font-weight: 700;
     }
   }
 }
@@ -214,7 +347,7 @@
   align-items: center;
   justify-content: space-around;
   position: relative;
-  background-color: $colorBackgroundWhite;
+  background-color: $colorBackgroundPink;
   .logo {
     width: 200px;
     height: auto;
@@ -243,25 +376,34 @@
       label {
         width: 450px;
         height: 45px;
-        background-color: $colorBeige;
+        background-color: $colorWhite;
         border-radius: 30px;
         display: flex;
         align-items: center;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
+        transition: all 300ms ease-in-out;
         img {
           width: auto;
           height: 35px;
           margin: 0 25px;
           cursor: pointer;
         }
+        .lock {
+          height: 32px;
+          margin: 0 30px;
+        }
         .eye_view {
           width: auto;
-          height: 20px;
-          margin: 0 25px;
+          height: 23px;
+          margin: 1px 25px 0 23px;
           cursor: pointer;
+        }
+        .eye {
+          margin: 0 20px;
         }
         input {
           border: none;
-          background-color: $colorBeige;
+          background-color: transparent;
           height: 40px;
           font-size: 24px;
           font-weight: 200;
@@ -269,6 +411,10 @@
           &:focus {
             outline: none;
           }
+        }
+        &:focus-within {
+          box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+          transform: scale(1.02);
         }
       }
       &.bordered_email {
@@ -292,18 +438,18 @@
     .check_btn {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       width: 50%;
       label {
         cursor: pointer;
         display: flex;
         align-items: center;
         font-size: 55px;
-        margin-left: 10px;
+        margin: 0 10px;
         input {
           display: none;
           &:checked ~ span {
-            background-color: $colorBrown;
+            background-color: $colorBtnBlue;
           }
           &:checked ~ span:before {
             height: 10px;
@@ -318,7 +464,7 @@
           display: inline-block;
           width: 20px;
           height: 20px;
-          border: 3px solid $colorBrown;
+          border: 3px solid $colorBtnBlue;
           border-radius: 5px;
           position: relative;
           cursor: pointer;
@@ -352,7 +498,6 @@
       }
       h3 {
         font-weight: 400;
-        width: 570px;
         margin: 10px 0;
       }
       &.bordered_check {
@@ -367,7 +512,7 @@
       font-size: 24px;
     }
     button {
-      background-color: $colorBrown;
+      background-color: $colorBtnBlue;
       color: $colorWhite;
       border: none;
       border-radius: 30px;
@@ -400,22 +545,14 @@
         transform: scale(1.01);
         box-shadow: 0 6px 4px darkgray;
       }
+      &:active {
+        transform: scale(0.93);
+      }
+      &.button_click {
+        animation-name: motion;
+        animation-duration: 400ms;
+      }
     }
-  }
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.4;
-  }
-  80% {
-    transform: scale(200, 200);
-    opacity: 0.25;
-  }
-  100% {
-    transform: scale(300, 300);
-    opacity: 0;
   }
 }
 
@@ -426,43 +563,104 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $colorBackgroundWhite;
+  background-color: $colorBackgroundPink;
   position: relative;
   justify-content: space-around;
+  overflow: hidden;
   .logo {
     position: absolute;
     width: 100px;
     height: auto;
     left: 25px;
     top: 15px;
+    cursor: pointer;
+    &:hover ~ .logout {
+      opacity: 1;
+      left: 40px;
+      top: 18px;
+    }
+  }
+  .logout {
+    position: absolute;
+    left: 40px;
+    top: 65px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 8px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: all 400ms;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+      left: 40px;
+      top: 18px;
+    }
   }
   .map {
     position: absolute;
     width: 60px;
     height: auto;
     right: 5px;
-    top: 10px;
+    top: 15px;
     cursor: pointer;
     background-color: transparent;
+    animation: bounce 1s ease-in-out infinite;
+    &:hover ~ .go_map {
+      opacity: 1;
+      right: 5px;
+      top: 47px;
+    }
+    &:hover {
+      animation: none;
+    }
+  }
+  .go_map {
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+    right: 5px;
+    top: 75px;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 8px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: all 500ms;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+      right: 5px;
+      top: 47px;
+    }
+    &:hover ~ .map {
+      animation: none;
+    }
   }
   .month {
     display: flex;
     align-items: center;
     justify-content: space-around;
     width: 220px;
-    margin-top: 50px;
+    margin: 80px 0 30px 0;
     img {
       display: flex;
       width: 20px;
       height: auto;
       cursor: pointer;
+      transition: all 450ms ease;
+      &:hover {
+        transform: scale(1.3);
+      }
     }
     span {
       font-size: 36px;
-      font-weight: 200;
+      font-weight: 300;
     }
     .next {
       transform: rotate(180deg);
+      &:hover {
+        transform: rotate(180deg) scale(1.3);
+      }
     }
   }
   table {
@@ -470,18 +668,19 @@
     height: 750px;
     margin-bottom: 50px;
     border-collapse: collapse;
+    table-layout: fixed;
     thead {
       font-size: 24px;
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid $colorBlack;
       th {
         width: 140px;
         height: 30px;
         color: $colorBlack;
         &.sun {
-          color: red;
+          color: $colorRed;
         }
         &.sat {
-          color: blue;
+          color: $colorblue;
         }
       }
     }
@@ -490,25 +689,40 @@
         font-size: 20px;
         border-bottom: 1px solid black;
         vertical-align: top;
+        height: 140px;
+        width: 100%;
         td {
           width: 140px;
-          height: 140px;
-          padding: 5px 0 0 8px;
+          height: 100%;
+          max-height: 140px;
+          padding: 3px 0 0 8px;
           box-sizing: border-box;
+          overflow: hidden;
+          cursor: pointer;
+          transition: all 300ms ease-in-out;
+          &:hover {
+            background-color: rgba(104, 71, 47, 0.1);
+          }
           &.sunday {
-            color: red;
+            color: $colorRed;
           }
           &.saturday {
-            color: blue;
+            color: $colorblue;
           }
           &.not_now_month {
             color: $colorGrey;
           }
           &.today {
-            background-color: $colorBeige;
+            background-color: $colorDarkPink;
           }
           &.select_day {
-            border: 2px solid $colorBrown;
+            border: 3px solid $colorBtnBrown;
+            span {
+              font-size: 22px;
+            }
+          }
+          span {
+            transition: all 250ms ease-in-out;
           }
           .daily_content {
             width: 125px;
@@ -521,10 +735,18 @@
             margin-top: 5px;
             padding-top: 2px;
             color: $colorWhite;
-            font-size: 18px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(136, 136, 136, 0.5);
+            transition: all 300ms ease-out;
             cursor: pointer;
+            &:hover {
+              transform: scale(1.02);
+              box-shadow: 0 3px 7px rgba(136, 136, 136, 0.7);
+            }
             &:active {
               opacity: 0.7;
+              transform: scale(0.91);
+              box-shadow: 0 1px 5px rgba(136, 136, 136, 0.5);
             }
             p {
               margin: 0;
@@ -546,32 +768,64 @@
     bottom: 40px;
     right: 60px;
     cursor: pointer;
+    border-radius: 100%;
+    box-shadow: 0 5px 12px rgba(104, 71, 47, 0.5);
+    transition: all 200ms ease-in-out;
+    &:hover {
+      animation: addmove 800ms ease-in-out;
+    }
+    &:active {
+      transform: scale(1.05);
+    }
   }
 }
 
 .map_container {
   width: 100vw;
   height: 100vh;
-  background-color: $colorWhite;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   .header {
     display: flex;
     width: 80%;
     height: 70px;
     align-items: center;
     justify-content: space-around;
-    background-color: $colorLightBeige;
+    background-color: $colorDarkPink;
     border-radius: 50px;
     box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 30px;
     z-index: 10;
+    transition: all 400ms ease;
     .logo {
       width: 70px;
       height: auto;
+      cursor: pointer;
+      &:hover ~ .logout {
+        opacity: 1;
+        left: 60px;
+        top: 6px;
+      }
+    }
+    .logout {
+      position: absolute;
+      left: 60px;
+      top: 65px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 8px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: all 400ms;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        left: 60px;
+        top: 6px;
+      }
     }
     label {
       display: flex;
@@ -582,11 +836,13 @@
       height: 40px;
       border-radius: 10px;
       box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+      transition: all 200ms ease-in-out;
       input {
         border: none;
         width: 80%;
         height: 95%;
         font-size: 24px;
+        background-color: transparent;
         &:focus {
           outline: none;
         }
@@ -596,25 +852,70 @@
         height: auto;
         cursor: pointer;
       }
+      &:focus-within {
+        transform: scale(1.03);
+      }
     }
     .calender {
       width: 45px;
       height: auto;
       background-color: transparent;
       cursor: pointer;
+      &:hover ~ .go_calender {
+        opacity: 1;
+        right: 52px;
+        top: 25px;
+      }
+    }
+    .go_calender {
+      position: absolute;
+      text-align: center;
+      font-size: 12px;
+      right: 52px;
+      top: 75px;
+      margin: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 8px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: all 500ms;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        right: 52px;
+        top: 25px;
+      }
+      &:hover ~ .map {
+        animation: none;
+      }
+    }
+    &.view {
+      top: -100px;
     }
   }
   .add {
     width: 100px;
     height: auto;
     position: absolute;
-    bottom: 50px;
+    bottom: 40px;
     right: 130px;
     z-index: 10;
     cursor: pointer;
+    border-radius: 100%;
+    box-shadow: 0 5px 12px rgba(104, 71, 47, 0.5);
+    transition: all 300ms ease-in-out;
+    &:hover {
+      animation: addmove 800ms ease-in-out;
+    }
+    &:active {
+      transform: scale(1.05);
+    }
+    &.add_view {
+      transform: scale(0);
+    }
   }
   .overlay {
-    background-color: $colorBeige;
+    background-color: $colorDarkPink;
     padding: 5px 10px;
     border-radius: 8px;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
@@ -628,221 +929,420 @@
   width: 100vw * 0.8;
   height: auto;
   min-height: 100vh;
-  background-color: $colorWhite;
+  background-color: $colorBackgroundPink;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   position: relative;
-  .logo {
-    position: absolute;
-    width: 100px;
-    height: auto;
-    left: 30px;
-    top: 15px;
-    cursor: pointer;
-  }
-  .map {
-    position: absolute;
-    width: 60px;
-    height: auto;
-    right: 5px;
-    top: 10px;
-    cursor: pointer;
-    background-color: transparent;
-  }
-  .inputs {
-    width: 70%;
+  .container {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    position: relative;
     align-items: center;
-    margin: 70px 0;
-    .titles,
-    .dates,
-    .colors,
-    .places {
-      display: flex;
-      align-items: center;
-      width: 800px;
-      position: relative;
-      h3 {
-        font-weight: 400;
-        font-size: 24px;
-        width: 10%;
-        margin-right: 150px;
+    justify-content: space-evenly;
+    position: relative;
+    overflow: hidden;
+    .logo {
+      position: absolute;
+      width: 100px;
+      height: auto;
+      left: 30px;
+      top: 15px;
+      cursor: pointer;
+      &:hover ~ .go_calender {
+        opacity: 1;
+        left: 30px;
+        top: 18px;
       }
-      label,
-      .color_code {
-        background-color: $colorBeige;
-        width: 350px;
-        height: 40px;
+    }
+    .go_calender {
+      position: absolute;
+      left: 30px;
+      top: 65px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 8px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: all 400ms;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        left: 30px;
+        top: 18px;
+      }
+    }
+    .map {
+      position: absolute;
+      width: 60px;
+      height: auto;
+      right: 5px;
+      top: 15px;
+      cursor: pointer;
+      background-color: transparent;
+      animation: bounce 1s ease-in-out infinite;
+      &:hover ~ .go_map {
+        opacity: 1;
+        right: 5px;
+        top: 47px;
+      }
+      &:hover {
+        animation: none;
+      }
+    }
+    .go_map {
+      position: absolute;
+      text-align: center;
+      font-size: 12px;
+      right: 5px;
+      top: 75px;
+      margin: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 8px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: all 500ms;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        right: 5px;
+        top: 47px;
+      }
+      &:hover ~ .map {
+        animation: none;
+      }
+    }
+    .inputs {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      align-items: center;
+      margin: 70px 0;
+      .titles,
+      .dates,
+      .colors,
+      .places {
         display: flex;
         align-items: center;
-        justify-content: center;
-        border-radius: 20px;
-        input {
-          border: none;
-          background-color: transparent;
-          height: 35px;
-          font-size: 20px;
-          &:focus {
-            outline: none;
-          }
-        }
-        .date {
-          width: 85%;
-        }
-        img {
-          height: 32px;
-          width: auto;
-          z-index: 210;
-          cursor: pointer;
-        }
-      }
-      .title {
-        width: 500px;
-        input {
-          width: 90%;
-        }
-      }
-      .color_code,
-      .place {
-        font-size: 22px;
-        justify-content: space-between;
-        padding: 0 20px 0 30px;
-        box-sizing: border-box;
+        width: 800px;
         position: relative;
-        .place_result {
-          position: absolute;
-          background-color: $colorBeige;
-          top: 40px;
-          left: 20px;
-          width: 275px;
-          z-index: 200;
-          font-size: 20px;
-          p {
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            padding: 10px 0 10px 12px;
-            margin: 0;
-            &:hover {
-              background-color: $colorLightBeige;
+        h3 {
+          font-weight: 400;
+          font-size: 24px;
+          width: 10%;
+          margin-right: 150px;
+        }
+        label {
+          background-color: $colorWhite;
+          width: 350px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 20px;
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.35);
+          color: $colorDarkBlack;
+          transition: all 500ms ease-in-out;
+          input {
+            border: none;
+            background-color: transparent;
+            height: 35px;
+            font-size: 20px;
+            &:focus {
+              outline: none;
             }
           }
-        }
-      }
-      .color_code {
-        font-size: 20px;
-      }
-      .choose_place {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        justify-content: space-between;
-      }
-      .color_picker {
-        position: absolute;
-        right: 50px;
-        z-index: 300;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        width: 150px;
-        height: 250px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        background-color: $colorWhite;
-        border-radius: 10px;
-        .color_circle {
-          width: 30px;
-          height: 30px;
-          margin: 5px;
-          border-radius: 100%;
-          label {
+          .date {
+            width: 85%;
+            color: $colorDarkBlack;
+          }
+          img {
+            height: 26px;
+            width: auto;
+            z-index: 210;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-size: 55px;
-            background-color: transparent;
+          }
+          &:focus-within {
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+            transform: scale(1.02);
+          }
+        }
+        .color_code {
+          background-color: $colorWhite;
+          width: 350px;
+          height: 40px;
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-radius: 20px;
+          padding: 0 26px 0 30px;
+          box-sizing: border-box;
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.35);
+          position: relative;
+          color: $colorDarkBlack;
+          transition: all 500ms ease-in-out;
+          img {
+            height: 26px;
+            width: auto;
+            z-index: 210;
+            cursor: pointer;
+          }
+          &.color_box_change {
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+            transform: scale(1.02);
+          }
+        }
+        .color_picker {
+          position: absolute;
+          right: 50px;
+          z-index: 0;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+          width: 150px;
+          height: 250px;
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          background-color: $colorWhite;
+          border-radius: 10px;
+          transition: all 500ms ease-in-out;
+          visibility: hidden;
+          opacity: 0;
+          transform: scale(0.85);
+          .color_circle {
             width: 30px;
             height: 30px;
-            input {
-              display: none;
-              &:checked ~ span:before {
-                height: 10px;
-                transition: all 0.15s ease 0.15s;
-              }
-              &:checked ~ span:after {
-                height: 18px;
-                transition: all 0.28s ease 0.28s;
-              }
-            }
-            span {
-              display: inline-block;
-              width: 20px;
-              height: 20px;
-              position: relative;
+            margin: 5px;
+            border-radius: 100%;
+            label {
               cursor: pointer;
-              &:before {
-                content: '';
-                display: inline-block;
-                width: 4px;
-                height: 0;
-                background-color: $colorWhite;
-                position: absolute;
-                transform-origin: left top;
-                border-radius: 10px;
-                top: 11px;
-                left: 0px;
-                transform: rotate(-45deg);
+              display: flex;
+              align-items: center;
+              font-size: 55px;
+              background-color: transparent;
+              width: 30px;
+              height: 30px;
+              input {
+                display: none;
+                &:checked ~ span:before {
+                  height: 10px;
+                  transition: all 0.15s ease 0.15s;
+                }
+                &:checked ~ span:after {
+                  height: 18px;
+                  transition: all 0.28s ease 0.28s;
+                }
               }
-              &:after {
-                content: '';
+              span {
                 display: inline-block;
-                width: 4px;
-                height: 0;
-                background-color: $colorWhite;
-                position: absolute;
-                transform-origin: left top;
-                border-radius: 10px;
-                top: 19px;
-                left: 8px;
-                transform: rotate(-135deg);
+                width: 20px;
+                height: 20px;
+                position: relative;
+                cursor: pointer;
+                &:before {
+                  content: '';
+                  display: inline-block;
+                  width: 4px;
+                  height: 0;
+                  background-color: $colorWhite;
+                  position: absolute;
+                  transform-origin: left top;
+                  border-radius: 10px;
+                  top: 11px;
+                  left: 0px;
+                  transform: rotate(-45deg);
+                }
+                &:after {
+                  content: '';
+                  display: inline-block;
+                  width: 4px;
+                  height: 0;
+                  background-color: $colorWhite;
+                  position: absolute;
+                  transform-origin: left top;
+                  border-radius: 10px;
+                  top: 19px;
+                  left: 8px;
+                  transform: rotate(-135deg);
+                }
               }
             }
+          }
+          &.picker_view {
+            visibility: visible;
+            opacity: 1;
+            z-index: 300;
+            transform: scale(1);
+          }
+        }
+        .title {
+          width: 500px;
+          input {
+            width: 90%;
+          }
+        }
+        .place {
+          font-size: 22px;
+          justify-content: space-between;
+          padding: 0 26px 0 30px;
+          box-sizing: border-box;
+          position: relative;
+          z-index: 50;
+          .place_result {
+            position: absolute;
+            background-color: $colorWhite;
+            box-shadow: 0 4px 4px $colorLightGrey;
+            top: 40px;
+            left: 20px;
+            width: 275px;
+            z-index: 55;
+            font-size: 20px;
+            p {
+              width: 100%;
+              height: 100%;
+              box-sizing: border-box;
+              padding: 10px 0 10px 12px;
+              margin: 0;
+              &:hover {
+                background-color: $colorDarkPink;
+              }
+            }
+          }
+          .choose_place {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+            z-index: 56;
           }
         }
       }
     }
+    .editor_box {
+      width: 80%;
+      height: auto;
+      min-height: 300px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      box-shadow: 0 0 10px $colorLightGrey;
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 80%;
+      height: 100px;
+      margin: 20px 0;
+      button {
+        border: none;
+        font-size: 28px;
+        width: 270px;
+        height: 60px;
+        border-radius: 40px;
+        background-color: $colorBtnBlue;
+        color: $colorWhite;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 2px 4px darkgray;
+        transition: all 0.2s ease-in;
+        z-index: 1;
+        .circle {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          background-color: $colorWhite;
+          opacity: 0;
+          width: 10px;
+          height: 10px;
+          z-index: 3;
+          animation-name: ripple;
+          animation-duration: 1s;
+          animation-timing-function: ease-in;
+        }
+        &:hover {
+          transform: scale(1.01);
+          box-shadow: 0 6px 4px darkgray;
+          background-color: $colorBtnGrey;
+          color: $colorBlack;
+        }
+        &:active {
+          background-color: $colorBtnGrey;
+          color: $colorBlack;
+          transform: scale(0.92);
+        }
+      }
+    }
+    &.blur {
+      filter: blur(3px);
+    }
   }
-  .editor_box {
-    width: 80%;
-    height: auto;
-    min-height: 300px;
+  .guide {
+    position: absolute;
+    background-color: $colorWhite;
+    width: 25%;
+    height: 20%;
+    z-index: 500;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-  }
-  .buttons {
-    display: flex;
     align-items: center;
-    justify-content: space-around;
-    width: 80%;
-    height: 100px;
-    margin: 20px 0;
-    button {
-      border: none;
-      font-size: 28px;
-      width: 270px;
-      height: 60px;
-      border-radius: 40px;
-      background-color: $colorBeige;
-      &:active {
-        background-color: $colorBrown;
-        color: white;
+    justify-content: space-evenly;
+    border-radius: 25px;
+    box-shadow: 0 0 20px $colorLightGrey;
+    p {
+      margin: 30px 0 0 0;
+      font-size: 18px;
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 90%;
+      height: 100px;
+      margin: 20px 0;
+      button {
+        border: none;
+        font-size: 22px;
+        width: 120px;
+        height: 50px;
+        border-radius: 40px;
+        background-color: $colorBtnBlue;
+        color: $colorWhite;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 2px 4px darkgray;
+        transition: all 0.2s ease-in;
+        z-index: 1;
+        &:hover {
+          transform: scale(1.01);
+          box-shadow: 0 6px 4px darkgray;
+          background-color: $colorBtnGrey;
+          color: $colorWhite;
+        }
+        &:active {
+          background-color: $colorBtnGrey;
+          color: $colorWhite;
+          transform: scale(0.85);
+        }
+      }
+      .cancel {
+        background-color: $colorWhite;
+        box-sizing: border-box;
+        border: 2px solid $colorBtnBlue;
+        color: $colorBtnBlue;
+        &:hover {
+          border: none;
+        }
+        &:active {
+          border: none;
+        }
       }
     }
   }
@@ -852,74 +1352,267 @@
   width: 100vw * 0.8;
   height: auto;
   min-height: 100vh;
-  background-color: $colorWhite;
+  background-color: $colorBackgroundPink;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   position: relative;
-  .logo {
-    position: absolute;
-    width: 100px;
-    height: auto;
-    left: 30px;
-    top: 15px;
-    cursor: pointer;
-  }
-  .map {
-    position: absolute;
-    width: 60px;
-    height: auto;
-    right: 5px;
-    top: 10px;
-    cursor: pointer;
-    background-color: transparent;
-  }
-  .title_date {
+  .view_box {
+    width: 100%;
+    height: 100%;
     display: flex;
-    width: 80%;
-    height: 50px;
-    color: $colorWhite;
-    border-radius: 40px;
-    font-size: 28px;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 100px;
-    .title {
-      margin-left: 30px;
-      font-weight: 700;
+    justify-content: space-evenly;
+    position: relative;
+    .logo {
+      position: absolute;
+      width: 100px;
+      height: auto;
+      left: 30px;
+      top: 15px;
+      cursor: pointer;
+      &:hover ~ .go_calender {
+        opacity: 1;
+        left: 43px;
+        top: 18px;
+      }
     }
-    .date {
-      margin-right: 25px;
-      font-size: 20px;
+    .go_calender {
+      position: absolute;
+      left: 43px;
+      top: 65px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 8px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: all 400ms;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        left: 43px;
+        top: 18px;
+      }
+    }
+    .map {
+      position: absolute;
+      width: 60px;
+      height: auto;
+      right: 5px;
+      top: 15px;
+      cursor: pointer;
+      background-color: transparent;
+      animation: bounce 1s ease-in-out infinite;
+      &:hover ~ .go_map {
+        opacity: 1;
+        right: 5px;
+        top: 47px;
+      }
+      &:hover {
+        animation: none;
+      }
+    }
+    .go_map {
+      position: absolute;
+      text-align: center;
+      font-size: 12px;
+      right: 5px;
+      top: 75px;
+      margin: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 8px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: all 500ms;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        right: 5px;
+        top: 47px;
+      }
+      &:hover ~ .map {
+        animation: none;
+      }
+    }
+    .content_first {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      height: 120px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 30px;
+      margin: 120px 0 30px 0;
+      box-shadow: 0 0 10px $colorGrey;
+      .title_date {
+        display: flex;
+        width: 90%;
+        height: 50px;
+        color: $colorWhite;
+        font-size: 28px;
+        align-items: center;
+        justify-content: space-between;
+        .title {
+          margin-left: 10px;
+          font-weight: 700;
+        }
+        .date {
+          margin-right: 15px;
+          font-size: 20px;
+        }
+      }
+      .place {
+        width: 90%;
+        height: 50px;
+        color: $colorWhite;
+        display: flex;
+        font-size: 20px;
+        align-items: center;
+        justify-content: space-between;
+        .address {
+          margin-left: 10px;
+        }
+        .place_name {
+          margin-right: 15px;
+          font-weight: 900;
+        }
+      }
+    }
+    .text {
+      width: 80%;
+      height: auto;
+      min-height: 800px;
+      background-color: $colorWhite;
+      margin: 30px 0;
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+      box-sizing: border-box;
+      padding-left: 15px;
+      border-radius: 10px;
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 80%;
+      height: 100px;
+      margin: 20px 0;
+      button {
+        border: none;
+        font-size: 28px;
+        width: 270px;
+        height: 60px;
+        border-radius: 40px;
+        background-color: $colorBtnBlue;
+        color: $colorWhite;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 2px 4px darkgray;
+        transition: all 0.2s ease-in;
+        z-index: 1;
+        .circle {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          background-color: $colorWhite;
+          opacity: 0;
+          width: 10px;
+          height: 10px;
+          z-index: 3;
+          animation-name: ripple;
+          animation-duration: 1s;
+          animation-timing-function: ease-in;
+        }
+        &:hover {
+          transform: scale(1.01);
+          box-shadow: 0 6px 4px darkgray;
+          background-color: $colorBtnGrey;
+          color: $colorBlack;
+        }
+        &:active {
+          background-color: $colorBtnGrey;
+          color: $colorBlack;
+          transform: scale(0.92);
+        }
+      }
+    }
+    &.box_blur {
+      filter: blur(5px);
     }
   }
-  .text {
-    width: 80%;
-    height: auto;
-    min-height: 800px;
-    background-color: $colorLightGrey;
-    margin: 30px 0;
-    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-    padding-left: 15px;
-  }
-  .place {
-    width: 80%;
-    height: 50px;
-    color: $colorWhite;
+  .delete_box {
+    position: absolute;
     display: flex;
-    border-radius: 40px;
-    font-size: 20px;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    .address {
-      margin-left: 25px;
+    justify-content: space-evenly;
+    width: 30%;
+    height: 18%;
+    background-color: $colorBackgroundPink;
+    border-radius: 15px;
+    box-shadow: 0 0 15px $colorLightGrey;
+    top: 400px;
+    transition: all 300ms ease-in-out;
+    p {
+      font-size: 32px;
+      margin: 30px 0 0 0;
     }
-    .place_name {
-      margin-right: 25px;
-      font-weight: 900;
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 90%;
+      height: 100px;
+      button {
+        border: none;
+        font-size: 28px;
+        width: 150px;
+        height: 60px;
+        border-radius: 40px;
+        background-color: $colorBtnBlue;
+        color: $colorWhite;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 2px 4px darkgray;
+        transition: all 0.2s ease-in;
+        z-index: 1;
+        .circle {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          background-color: $colorWhite;
+          opacity: 0;
+          width: 10px;
+          height: 10px;
+          z-index: 3;
+          animation-name: ripple;
+          animation-duration: 1s;
+          animation-timing-function: ease-in;
+        }
+        &:hover {
+          transform: scale(1.01);
+          box-shadow: 0 6px 4px darkgray;
+          background-color: $colorBtnGrey;
+          color: $colorBlack;
+        }
+        &:active {
+          background-color: $colorBtnGrey;
+          color: $colorBlack;
+          transform: scale(0.92);
+        }
+      }
+      .btn_no {
+        background-color: $colorWhite;
+        box-sizing: border-box;
+        border: 2.5px solid $colorBtnBlue;
+        color: $colorBtnBlue;
+        &:hover {
+          color: $colorWhite;
+          border: none;
+        }
+      }
     }
   }
 }
@@ -950,61 +1643,66 @@
       margin: 5px 0 70px 0;
     }
   }
+
   .login {
     width: 100%;
     height: 100%;
     justify-content: space-evenly;
-    .logo {
-      margin: 0;
-    }
-    .content {
-      height: 90%;
-      .login_btn {
-        flex-direction: column;
-        width: 500px;
-        height: 320px;
-        .input_user {
-          height: 210px;
-          .email,
-          .pw {
-            flex-direction: column;
-            width: 350px;
-            h1 {
-              margin: 10px 0;
-            }
-            label {
+    .login_background {
+      .logo {
+        margin: 0;
+      }
+      .content {
+        height: 90%;
+        width: 90%;
+        .login_btn {
+          flex-direction: column;
+          width: 500px;
+          height: 320px;
+          .input_user {
+            height: 210px;
+            width: 100%;
+            .email,
+            .pw {
+              flex-direction: column;
               width: 350px;
-              input {
-                width: 80%;
+              h1 {
+                margin: 10px 0;
+              }
+              label {
+                width: 350px;
+                input {
+                  width: 80%;
+                }
               }
             }
           }
+          button {
+            height: 60px;
+            font-size: 40px;
+            border-radius: 30px;
+          }
         }
-        button {
-          height: 60px;
-          font-size: 40px;
-          border-radius: 30px;
+        h1 {
+          margin: 35px 0;
         }
       }
-      h1 {
-        margin: 35px 0;
+      .spinner {
+        margin: 0;
       }
-    }
-    .spinner {
-      margin: 0;
-    }
-    .spinner_text {
-      margin: 0 0 50px 0;
-      font-size: 25px;
+      .spinner_text {
+        margin: 0 0 50px 0;
+        font-size: 25px;
+      }
     }
   }
 
   .join_email {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     justify-content: space-evenly;
     .logo {
-      margin: 0;
+      margin: 50px 0;
     }
     .inputs {
       .email,
@@ -1038,34 +1736,70 @@
   }
 
   .calender {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     .logo {
       width: 70px;
       left: 10px;
+      &:hover ~ .logout {
+        left: 12px;
+        top: 12px;
+      }
+    }
+    .logout {
+      left: 12px;
+      top: 50px;
+      &:hover {
+        left: 12px;
+        top: 12px;
+      }
     }
     .map {
       width: 40px;
+      &:hover ~ .go_map {
+        top: 15px;
+      }
+    }
+    .go_map {
+      width: 25px;
+      top: 55px;
+      &:hover {
+        top: 15px;
+      }
     }
     .month {
       margin-top: 20px;
+      width: 190px;
+      span {
+        font-size: 30px;
+      }
     }
     table {
       width: 95%;
+      height: 70%;
       thead {
         font-size: 16px;
+        th {
+          width: calc(100% / 7);
+        }
       }
       tbody {
+        height: 95%;
         tr {
           font-size: 16px;
           td {
-            padding: 3px 0 0 4px;
+            padding: 3px 0 0 3px;
             width: calc(100% / 7);
             .daily_content {
-              width: 100%;
+              width: 95%;
               font-size: 12px;
               height: 25px;
               border-radius: 3px;
+            }
+            &.select_day {
+              span {
+                font-size: 18px;
+              }
             }
           }
         }
@@ -1073,124 +1807,7 @@
     }
     .add {
       right: 20px;
-    }
-  }
-
-  .add_content {
-    width: 100%;
-    height: 100%;
-    justify-content: space-around;
-    .logo {
-      width: 70px;
-      left: 10px;
-    }
-    .map {
-      width: 40px;
-    }
-    .inputs {
-      width: 85%;
-      margin: 70px 0 30px 0;
-      .titles,
-      .dates,
-      .colors,
-      .places {
-        width: 100%;
-        h3 {
-          margin-right: 10px;
-          font-size: 20px;
-          width: 30%;
-        }
-        .color_code {
-          width: 100%;
-          padding: 0;
-          span {
-            margin-left: 20px;
-          }
-          img {
-            margin-right: 15px;
-          }
-        }
-        label {
-          width: 100%;
-        }
-        .title {
-          width: 100%;
-          input {
-            margin-left: 15px;
-          }
-        }
-        .place {
-          width: 100%;
-          padding: 0;
-          input {
-            width: 80%;
-            margin-left: 31px;
-          }
-          img {
-            margin-right: 15px;
-          }
-          .place_result {
-            width: 75%;
-          }
-          .choose_place {
-            width: 100%;
-            box-sizing: border-box;
-            padding-left: 20px;
-          }
-        }
-      }
-      .colors {
-        input {
-          width: 80%;
-          margin-left: 20px;
-        }
-        .color_picker {
-          top: 60px;
-        }
-      }
-    }
-    .editor_box {
-      width: 90%;
-    }
-    .buttons {
-      button {
-        width: 40%;
-      }
-    }
-  }
-
-  .content_view {
-    width: 100%;
-    height: 100%;
-    justify-content: space-around;
-    .logo {
-      width: 70px;
-      left: 10px;
-    }
-    .map {
-      width: 40px;
-    }
-    .title_date {
-      margin-top: 80px;
-      font-size: 22px;
-      .title {
-        margin-left: 20px;
-      }
-      .date {
-        font-size: 18px;
-        margin-right: 15px;
-      }
-    }
-    .place {
-      font-size: 14px;
-      height: 40px;
-      .address {
-        margin-left: 20px;
-      }
-      .place_name {
-        margin-right: 20px;
-        font-size: 15px;
-      }
+      width: 80px;
     }
   }
 
@@ -1222,6 +1839,299 @@
     .add {
       right: 30px;
       bottom: 100px;
+      width: 80px;
+      &:hover {
+        animation: addmove_mobile 800ms ease-in-out;
+      }
     }
+  }
+
+  .add_content {
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    .container {
+      width: 100%;
+      height: 100%;
+      .logo {
+        width: 70px;
+        left: 10px;
+        &:hover ~ .go_calender {
+          left: 7px;
+          top: -5px;
+        }
+      }
+      .go_calender {
+        left: 7px;
+        top: 50px;
+        width: 60px;
+        text-align: center;
+        border-radius: 15px;
+        &:hover {
+          left: 7px;
+          top: -5px;
+        }
+      }
+      .map {
+        width: 40px;
+        &:hover ~ .go_map {
+          top: 15px;
+        }
+      }
+      .go_map {
+        width: 25px;
+        top: 55px;
+        &:hover {
+          top: 15px;
+        }
+      }
+      .inputs {
+        width: 85%;
+        margin: 70px 0 30px 0;
+        .titles,
+        .dates,
+        .colors,
+        .places {
+          width: 100%;
+          h3 {
+            margin-right: 10px;
+            font-size: 20px;
+            width: 30%;
+          }
+          .color_code {
+            width: 100%;
+            padding: 0;
+            span {
+              margin-left: 20px;
+            }
+            img {
+              margin-right: 15px;
+            }
+          }
+          label {
+            width: 100%;
+          }
+          .title {
+            width: 100%;
+            input {
+              margin-left: 15px;
+            }
+          }
+          .place {
+            width: 100%;
+            padding: 0;
+            input {
+              width: 80%;
+              margin-left: 31px;
+            }
+            img {
+              margin-right: 15px;
+            }
+            .place_result {
+              width: 75%;
+            }
+            .choose_place {
+              width: 100%;
+              box-sizing: border-box;
+              padding-left: 20px;
+            }
+          }
+        }
+        .colors {
+          input {
+            width: 80%;
+            margin-left: 20px;
+          }
+          .color_picker {
+            top: 60px;
+          }
+        }
+      }
+      .editor_box {
+        width: 90%;
+      }
+      .buttons {
+        button {
+          width: 40%;
+        }
+      }
+    }
+    .guide {
+      width: 75%;
+    }
+  }
+
+  .content_view {
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    .logo {
+      width: 70px;
+      left: 10px;
+      &:hover ~ .go_calender {
+        left: 7px;
+        top: -5px;
+      }
+    }
+    .go_calender {
+      left: 7px;
+      top: 50px;
+      width: 60px;
+      text-align: center;
+      border-radius: 15px;
+      &:hover {
+        left: 7px;
+        top: -5px;
+      }
+    }
+    .map {
+      width: 40px;
+      &:hover ~ .go_map {
+        top: 15px;
+      }
+    }
+    .go_map {
+      width: 25px;
+      top: 55px;
+      &:hover {
+        top: 15px;
+      }
+    }
+    .content_first {
+      margin: 80px 0 10px 0;
+      .title_date {
+        font-size: 22px;
+        width: 98%;
+        .title {
+          margin-left: 20px;
+        }
+        .date {
+          font-size: 18px;
+          margin-right: 15px;
+        }
+      }
+      .place {
+        font-size: 14px;
+        height: 40px;
+        width: 98%;
+        .address {
+          margin-left: 20px;
+        }
+        .place_name {
+          margin-right: 20px;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes motion {
+  0% {
+    transform: translateX(1px);
+  }
+  20% {
+    transform: translateX(-1px);
+  }
+  40% {
+    transform: translateX(1px);
+  }
+  60% {
+    transform: translateX(-1px);
+  }
+  80% {
+    transform: translateX(1px);
+  }
+  100% {
+    transform: translateX(-1px);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.4;
+  }
+  80% {
+    transform: scale(200, 200);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(300, 300);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    top: 15px;
+    transform: rotate(0deg);
+  }
+  20% {
+    top: 10px;
+    transform: rotate(10deg);
+  }
+  40% {
+    top: 15px;
+    transform: rotate(0deg);
+  }
+  60% {
+    top: 10px;
+    transform: rotate(-10deg);
+  }
+  80% {
+    top: 15px;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes addmove {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(-35deg);
+  }
+  50% {
+    bottom: 40px;
+    transform: rotate(0deg);
+  }
+  80% {
+    bottom: 50px;
+    transform: rotate(0deg);
+  }
+  100% {
+    bottom: 40px;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes addmove_mobile {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(-35deg);
+  }
+  50% {
+    bottom: 100px;
+    transform: rotate(0deg);
+  }
+  80% {
+    bottom: 110px;
+    transform: rotate(0deg);
+  }
+  100% {
+    bottom: 100px;
+    transform: rotate(0deg);
   }
 }

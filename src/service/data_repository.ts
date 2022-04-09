@@ -1,5 +1,5 @@
 import { database } from './firebase';
-import { query, ref, set, orderByChild, onValue, equalTo } from 'firebase/database';
+import { query, ref, set, orderByChild, onValue, equalTo, remove, update } from 'firebase/database';
 
 export interface IContent {
   id: number;
@@ -30,7 +30,22 @@ export function uploadContent ( userId:string, content:IContent) {
   });
 }
 
-export function downloadContent (userId:string, setContent:any, year_month:number) {
+export function updateContent (userId:string, content:IContent) {
+  const db = database;
+  update(ref(db, userId + '/DailyContents/' + content.id), {
+    title: content.title,
+    date: content.date,
+    color: content.color,
+    place_name: content.place_name,
+    place_address: content.place_address,
+    text: content.text,
+    year_month: content.year_month,
+    x: content.x,
+    y: content.y
+  });
+}
+
+export function requestContent (userId:string, setContent:any, year_month:number) {
   const db = database;
   const getDataRef = query(ref(db, userId + '/DailyContents/'), orderByChild('year_month'), equalTo(year_month))
   onValue(getDataRef, (snapshot)=>{
@@ -44,4 +59,9 @@ export function downloadContentMap (userId:string, setContent:any) {
   onValue(getDataRef, (snapshot)=>{
     setContent(snapshot.val())
   })
+}
+
+export function deleteContent (userId: string, content:IContent) {
+  const db = database;
+  remove(ref(db, userId+'/DailyContents/' + content.id));
 }

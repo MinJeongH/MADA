@@ -22,6 +22,7 @@ const MapView = () => {
   const [content, setContent] = useState<IGetContent>();
   const [contentKey, setContentKey] = useState<string[]>([]);
   const [viewOverlay, setViewOverlay] = useState<boolean[]>([]);
+  const [dragging, setDragging] = useState(false);
   const [centerGeocode, setCenterGeocode] = useState<ICenterGeocode>({
     lat: 37.586643474146,
     lng: 127.174180045525,
@@ -61,8 +62,16 @@ const MapView = () => {
 
   return (
     <section className='map_container'>
-      <div className='header'>
-        <img className='logo' src='/logo.svg' alt='logo_icon' />
+      <div className={`header ${dragging && 'view'}`}>
+        <img
+          className='logo'
+          src='/logo.svg'
+          alt='logo_icon'
+          onClick={() => nav('/')}
+        />
+        <p className='logout' onClick={() => nav('/')}>
+          로그아웃
+        </p>
         <label htmlFor='search'>
           <input type='text' name='search' id='search' />
           <img src='/search.svg' alt='search_icon' />
@@ -73,11 +82,22 @@ const MapView = () => {
           alt='calender_icon'
           onClick={goToCalender}
         />
+        <p className='go_calender' onClick={goToCalender}>
+          달력 이동
+        </p>
       </div>
+      <img
+        className={`add ${dragging && 'add_view'}`}
+        src='/content_add.svg'
+        alt='add_icon'
+        onClick={goToAddcontent}
+      />
       <Map
         center={centerGeocode}
         level={12}
         style={{ width: '100vw', height: '100vh' }}
+        onDragStart={() => setDragging(true)}
+        onDragEnd={() => setDragging(false)}
       >
         {contentKey.map(
           (key, idx) =>
@@ -116,12 +136,6 @@ const MapView = () => {
             )
         )}
       </Map>
-      <img
-        className='add'
-        src='/content_add.svg'
-        alt='add_icon'
-        onClick={goToAddcontent}
-      />
     </section>
   );
 };

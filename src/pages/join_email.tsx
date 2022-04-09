@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Join } from '../service/auth_provider';
 
 interface IClickEvent {
@@ -17,6 +17,8 @@ const JoinEmail = () => {
     pwClick: false,
     checkClick: false,
   });
+  const [mouseCode, setMouseCode] = useState({ x: 0, y: 0 });
+  const [clickAni, setClickAni] = useState(false);
 
   const inputRefEmail = useRef<HTMLInputElement>(null);
   const inputRefPassword = useRef<HTMLInputElement>(null);
@@ -40,33 +42,38 @@ const JoinEmail = () => {
         newVal.checkClick = false;
         return newVal;
       });
-
       if (inputRefEmail.current?.value === '') {
         setClickEvent((prev) => {
           const newVal = { ...prev, checkClick: false, pwClick: false };
           newVal.emailClick = true;
           return newVal;
         });
+        setClickAni(true);
+        setTimeout(() => {
+          setClickAni(false);
+        }, 500);
       } else if (inputRefEmail.current?.value) {
         setClickEvent((prev) => {
           const newVal = { ...prev, checkClick: false, pwClick: false };
           newVal.emailClick = false;
           return newVal;
         });
-
         if (inputRefPassword.current?.value === '') {
           setClickEvent((prev) => {
             const newVal = { ...prev, checkClick: false, emailClick: false };
             newVal.pwClick = true;
             return newVal;
           });
+          setClickAni(true);
+          setTimeout(() => {
+            setClickAni(false);
+          }, 500);
         } else if (inputRefPassword.current?.value) {
           setClickEvent((prev) => {
             const newVal = { ...prev, checkClick: false, emailClick: false };
             newVal.pwClick = false;
             return newVal;
           });
-
           const result = await Join(
             inputRefEmail.current.value,
             inputRefPassword.current?.value
@@ -81,14 +88,29 @@ const JoinEmail = () => {
         newVal.checkClick = true;
         return newVal;
       });
+      setClickAni(true);
+      setTimeout(() => {
+        setClickAni(false);
+      }, 500);
     }
   };
 
-  // useEffect(() => setRipple(false), [setRipple]);
+  const handleMouseCode = (e: any) => {
+    setMouseCode({ x: e.offsetX, y: e.offsetY });
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousedown', handleMouseCode);
+    return () => {
+      window.removeEventListener('mouseup', handleMouseCode);
+    };
+  }, []);
 
   return (
     <section className='join_email'>
-      <img className='logo' src='/logo.svg' alt='logo_icon' />
+      <Link to={'/'}>
+        <img className='logo' src='/logo.svg' alt='logo_icon' />
+      </Link>
       <div className='inputs'>
         <div className={`email ${clickEvent.emailClick && 'bordered_email'}`}>
           <h1>E-mail</h1>
@@ -100,7 +122,7 @@ const JoinEmail = () => {
         <div className={`pw ${clickEvent.pwClick && 'bordered_pw'}`}>
           <h1>Password</h1>
           <label htmlFor='password'>
-            <img src='/lock.svg' alt='pw_icon' />
+            <img className='lock' src='/lock.svg' alt='pw_icon' />
             <input
               id='password'
               ref={inputRefPassword}
@@ -116,6 +138,7 @@ const JoinEmail = () => {
               />
             ) : (
               <img
+                className='eye'
                 src='/eye.svg'
                 alt='eye_icon'
                 onClick={() => setClickPwView((prev) => !prev)}
@@ -137,17 +160,22 @@ const JoinEmail = () => {
             />
             <span></span>
           </label>
-          <h3>
-            이메일과 비밀번호의 저장과 로그인 후 등록하는 정보들의 저장에
-            동의합니다.
-          </h3>
+          <h3>개인 정보 수집 및 이용에 동의합니다.</h3>
         </div>
         {clickEvent.emailClick && <h2>이메일을 입력하세요</h2>}
         {clickEvent.pwClick && <h2>비밀번호를 입력하세요</h2>}
         {clickEvent.checkClick && <h2>약관을 체크해주세요</h2>}
-        <button onClick={handleClickEvent}>
+        <button
+          className={`${clickAni && 'button_click'}`}
+          onClick={handleClickEvent}
+        >
           Create Account
-          {ripple && <div className='circle'></div>}
+          {ripple && (
+            <div
+              className='circle'
+              style={{ top: mouseCode.y, left: mouseCode.x }}
+            ></div>
+          )}
         </button>
       </div>
     </section>
