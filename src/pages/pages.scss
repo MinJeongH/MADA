@@ -1,4 +1,5 @@
 @import '../color.scss';
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap');
 
 .home {
   width: 100vw * 0.8;
@@ -9,6 +10,8 @@
   align-items: center;
   justify-content: end;
   position: relative;
+  font-family: 'Nanum Gothic Coding', sans-serif;
+  word-spacing: 0.1px;
   .background {
     position: absolute;
     z-index: 1;
@@ -82,6 +85,8 @@
   flex-direction: column;
   align-items: center;
   background-color: $colorBackgroundPink;
+  font-family: 'Nanum Gothic Coding', sans-serif;
+  word-spacing: 0.1px;
   .login_background {
     width: 100%;
     height: 100%;
@@ -160,7 +165,6 @@
                 height: 40px;
                 font-size: 24px;
                 font-weight: 200;
-                margin-right: 40px;
                 &:focus {
                   outline: none;
                 }
@@ -348,6 +352,8 @@
   justify-content: space-around;
   position: relative;
   background-color: $colorBackgroundPink;
+  font-family: 'Nanum Gothic Coding', sans-serif;
+  word-spacing: 0.1px;
   .logo {
     width: 200px;
     height: auto;
@@ -407,7 +413,6 @@
           height: 40px;
           font-size: 24px;
           font-weight: 200;
-          margin-right: 40px;
           &:focus {
             outline: none;
           }
@@ -439,7 +444,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 50%;
+      width: 35%;
       label {
         cursor: pointer;
         display: flex;
@@ -567,6 +572,8 @@
   position: relative;
   justify-content: space-around;
   overflow: hidden;
+  font-family: 'Nanum Gothic Coding', sans-serif;
+  word-spacing: 0.1px;
   .logo {
     position: absolute;
     width: 100px;
@@ -607,7 +614,7 @@
     animation: bounce 1s ease-in-out infinite;
     &:hover ~ .go_map {
       opacity: 1;
-      right: 5px;
+      right: 13px;
       top: 47px;
     }
     &:hover {
@@ -617,8 +624,9 @@
   .go_map {
     position: absolute;
     text-align: center;
+    width: 28px;
     font-size: 12px;
-    right: 5px;
+    right: 13px;
     top: 75px;
     margin: 0;
     background-color: rgba(255, 255, 255, 0.8);
@@ -629,7 +637,7 @@
     cursor: pointer;
     &:hover {
       opacity: 1;
-      right: 5px;
+      right: 13px;
       top: 47px;
     }
     &:hover ~ .map {
@@ -749,7 +757,7 @@
               box-shadow: 0 1px 5px rgba(136, 136, 136, 0.5);
             }
             p {
-              margin: 0;
+              margin: 0 20px;
               display: -webkit-box;
               -webkit-line-clamp: 1;
               -webkit-box-orient: vertical;
@@ -777,6 +785,9 @@
     &:active {
       transform: scale(1.05);
     }
+    &.move_add {
+      animation: addmove 800ms ease-in-out;
+    }
   }
 }
 
@@ -788,6 +799,8 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+  font-family: 'Nanum Gothic Coding', sans-serif;
+  word-spacing: 0.1px;
   .header {
     display: flex;
     width: 80%;
@@ -863,7 +876,7 @@
       cursor: pointer;
       &:hover ~ .go_calender {
         opacity: 1;
-        right: 52px;
+        right: 56px;
         top: 25px;
       }
     }
@@ -871,7 +884,7 @@
       position: absolute;
       text-align: center;
       font-size: 12px;
-      right: 52px;
+      right: 56px;
       top: 75px;
       margin: 0;
       background-color: rgba(255, 255, 255, 0.8);
@@ -882,7 +895,7 @@
       cursor: pointer;
       &:hover {
         opacity: 1;
-        right: 52px;
+        right: 56px;
         top: 25px;
       }
       &:hover ~ .map {
@@ -936,6 +949,8 @@
   align-items: center;
   justify-content: space-evenly;
   position: relative;
+  font-family: 'Nanum Gothic Coding', sans-serif;
+  word-spacing: 0.1px;
   .container {
     width: 100%;
     height: 100%;
@@ -1051,6 +1066,8 @@
             background-color: transparent;
             height: 35px;
             font-size: 20px;
+            font-family: 'Nanum Gothic Coding', sans-serif;
+            word-spacing: 0.1px;
             &:focus {
               outline: none;
             }
@@ -1071,7 +1088,6 @@
           }
         }
         .color_code {
-          background-color: $colorWhite;
           width: 350px;
           height: 40px;
           font-size: 20px;
@@ -1083,7 +1099,7 @@
           box-sizing: border-box;
           box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.35);
           position: relative;
-          color: $colorDarkBlack;
+          color: $colorWhite;
           transition: all 500ms ease-in-out;
           img {
             height: 26px;
@@ -1286,7 +1302,7 @@
   .guide {
     position: absolute;
     background-color: $colorWhite;
-    width: 25%;
+    width: 30%;
     height: 20%;
     z-index: 500;
     display: flex;
@@ -1358,6 +1374,8 @@
   align-items: center;
   justify-content: space-evenly;
   position: relative;
+  font-family: 'Nanum Gothic Coding', sans-serif;
+  word-spacing: 0.1px;
   .view_box {
     width: 100%;
     height: 100%;
@@ -1626,21 +1644,60 @@
   .content_view {
     width: 100vw;
   }
+  .map_container {
+    .header {
+      .logo {
+        &:hover ~ .logout {
+          left: 50px;
+        }
+      }
+      .logout {
+        left: 50px;
+        &:hover {
+          left: 50px;
+        }
+      }
+      .calender {
+        &:hover ~ .go_calender {
+          right: 42px;
+        }
+      }
+      .go_calender {
+        right: 42px;
+        &:hover {
+          right: 42px;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1080px) {
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
   .home {
     width: 100%;
     height: 100%;
+    overflow: hidden;
     .background {
       object-fit: fill;
     }
     .logo {
       width: 200px;
-      margin: 0 0 60px 70px;
+      margin: 0 0 120px 130px;
+    }
+    h1 {
+      font-size: 16px;
+      &::before {
+        bottom: -1px;
+        height: 2px;
+      }
     }
     button {
       margin: 5px 0 70px 0;
+      font-size: 18px;
     }
   }
 
@@ -1648,6 +1705,7 @@
     width: 100%;
     height: 100%;
     justify-content: space-evenly;
+    overflow: hidden;
     .login_background {
       .logo {
         margin: 0;
@@ -1667,32 +1725,69 @@
               flex-direction: column;
               width: 350px;
               h1 {
-                margin: 10px 0;
+                margin: 10px 0 10px 15px;
+                font-size: 16px;
               }
               label {
-                width: 350px;
+                width: 300px;
+                height: 40px;
+                img {
+                  height: 22px;
+                }
+                .lock {
+                  height: 20px;
+                }
+                .eye_view {
+                  height: 18px;
+                }
+                .eye {
+                  height: 28px;
+                }
                 input {
                   width: 80%;
+                  font-size: 14px;
                 }
               }
             }
           }
           button {
-            height: 60px;
-            font-size: 40px;
+            width: 150px;
+            height: 45px;
+            font-size: 20px;
             border-radius: 30px;
           }
         }
         h1 {
           margin: 35px 0;
+          font-size: 22px;
+        }
+        .google_btn {
+          font-size: 18px;
+          height: 45px;
+          width: 250px;
+          img {
+            height: 25px;
+          }
         }
       }
+      a {
+        .join_btn {
+          font-size: 20px;
+          &::before {
+            bottom: -1px;
+            height: 2px;
+          }
+        }
+      }
+    }
+    .spinner_background {
       .spinner {
-        margin: 0;
+        width: 10rem;
+        height: 10rem;
       }
       .spinner_text {
-        margin: 0 0 50px 0;
-        font-size: 25px;
+        margin: 80px 0 50px 0;
+        font-size: 20px;
       }
     }
   }
@@ -1701,6 +1796,7 @@
     width: 100%;
     height: 100vh;
     justify-content: space-evenly;
+    overflow: hidden;
     .logo {
       margin: 50px 0;
     }
@@ -1708,29 +1804,71 @@
       .email,
       .pw {
         flex-direction: column;
-        width: 90%;
+        width: 350px;
         h1 {
-          margin: 10px 0;
+          margin: 0 0 10px 0;
+          font-size: 16px;
         }
         label {
-          width: 100%;
-          margin-bottom: 30px;
+          width: 300px;
+          height: 40px;
+          img {
+            height: 22px;
+          }
+          .lock {
+            height: 20px;
+          }
+          .eye_view {
+            height: 18px;
+          }
+          .eye {
+            height: 28px;
+          }
           input {
             width: 80%;
+            font-size: 14px;
           }
         }
       }
     }
     .select {
       .check_btn {
-        width: 85%;
-        margin-bottom: 50px;
+        width: auto;
         label {
           margin-right: 10px;
+          input {
+            &:checked ~ span:after {
+              height: 14.5px;
+            }
+          }
+          span {
+            width: 14px;
+            height: 14px;
+            &:before {
+              width: 3px;
+              top: 7px;
+              left: -1.5px;
+              transform: rotate(-40deg);
+            }
+            &:after {
+              width: 3px;
+              top: 15px;
+              left: 5.5px;
+            }
+          }
         }
         h3 {
           width: 300px;
+          font-size: 16px;
         }
+      }
+      h2 {
+        font-size: 18px;
+      }
+      button {
+        font-size: 16px;
+        width: 190px;
+        height: 45px;
       }
     }
   }
@@ -1738,33 +1876,39 @@
   .calender {
     width: 100vw;
     height: 100%;
+    overflow: hidden;
     .logo {
       width: 70px;
       left: 10px;
       &:hover ~ .logout {
-        left: 12px;
-        top: 12px;
+        left: 15px;
+        top: 15px;
       }
     }
     .logout {
-      left: 12px;
+      left: 15px;
       top: 50px;
+      font-size: 12px;
       &:hover {
-        left: 12px;
-        top: 12px;
+        left: 15px;
+        top: 15px;
       }
     }
     .map {
       width: 40px;
       &:hover ~ .go_map {
-        top: 15px;
+        top: 20px;
+        right: 7px;
       }
     }
     .go_map {
-      width: 25px;
+      width: 20px;
       top: 55px;
+      font-size: 10px;
+      right: 7px;
       &:hover {
-        top: 15px;
+        top: 20px;
+        right: 7px;
       }
     }
     .month {
@@ -1795,6 +1939,9 @@
               font-size: 12px;
               height: 25px;
               border-radius: 3px;
+              p {
+                margin: 0 10px;
+              }
             }
             &.select_day {
               span {
@@ -1814,12 +1961,26 @@
   .map_container {
     width: 100%;
     height: 100%;
+    overflow: hidden;
     .header {
       top: 15px;
       width: 90%;
       height: 50px;
       .logo {
         width: 50px;
+        &:hover ~ .logout {
+          left: 29px;
+          top: 3px;
+        }
+      }
+      .logout {
+        left: 29px;
+        top: 45px;
+        font-size: 12px;
+        &:hover {
+          left: 29px;
+          top: 3px;
+        }
       }
       label {
         height: 30px;
@@ -1834,6 +1995,20 @@
       }
       .calender {
         width: 30px;
+        &:hover ~ .go_calender {
+          right: 34px;
+          top: 10px;
+        }
+      }
+      .go_calender {
+        right: 34px;
+        top: 55px;
+        width: 20px;
+        font-size: 10px;
+        &:hover {
+          right: 34px;
+          top: 10px;
+        }
       }
     }
     .add {
@@ -1850,6 +2025,7 @@
     width: 100%;
     height: 100%;
     justify-content: space-around;
+    overflow: hidden;
     .container {
       width: 100%;
       height: 100%;
@@ -1857,32 +2033,37 @@
         width: 70px;
         left: 10px;
         &:hover ~ .go_calender {
-          left: 7px;
-          top: -5px;
+          left: 15px;
+          top: 12px;
         }
       }
       .go_calender {
-        left: 7px;
+        left: 15px;
         top: 50px;
-        width: 60px;
+        width: 50px;
         text-align: center;
         border-radius: 15px;
+        font-size: 12px;
         &:hover {
-          left: 7px;
-          top: -5px;
+          left: 15px;
+          top: 12px;
         }
       }
       .map {
         width: 40px;
         &:hover ~ .go_map {
-          top: 15px;
+          top: 20px;
+          right: 7px;
         }
       }
       .go_map {
-        width: 25px;
+        width: 20px;
         top: 55px;
+        font-size: 10px;
+        right: 7px;
         &:hover {
-          top: 15px;
+          top: 20px;
+          right: 7px;
         }
       }
       .inputs {
@@ -1895,8 +2076,8 @@
           width: 100%;
           h3 {
             margin-right: 10px;
-            font-size: 20px;
-            width: 30%;
+            font-size: 14px;
+            width: 15%;
           }
           .color_code {
             width: 100%;
@@ -1909,16 +2090,24 @@
             }
           }
           label {
-            width: 100%;
+            width: 80%;
+            height: 28px;
+            input {
+              font-size: 12px;
+            }
+            img {
+              height: 16px;
+            }
           }
           .title {
-            width: 100%;
+            width: 80%;
             input {
               margin-left: 15px;
+              font-size: 12px;
             }
           }
           .place {
-            width: 100%;
+            width: 80%;
             padding: 0;
             input {
               width: 80%;
@@ -1936,8 +2125,14 @@
               padding-left: 20px;
             }
           }
-        }
-        .colors {
+          .color_code {
+            width: 80%;
+            height: 28px;
+            font-size: 12px;
+            img {
+              height: 16px;
+            }
+          }
           input {
             width: 80%;
             margin-left: 20px;
@@ -1951,13 +2146,28 @@
         width: 90%;
       }
       .buttons {
+        margin: 20px 0;
+        height: auto;
         button {
-          width: 40%;
+          width: 25%;
+          height: 40px;
+          font-size: 16px;
         }
       }
     }
     .guide {
-      width: 75%;
+      width: 55%;
+      height: 17%;
+      p {
+        font-size: 14px;
+      }
+      .buttons {
+        button {
+          font-size: 14px;
+          height: 40px;
+          width: 80px;
+        }
+      }
     }
   }
 
@@ -1965,61 +2175,96 @@
     width: 100%;
     height: 100%;
     justify-content: space-around;
-    .logo {
-      width: 70px;
-      left: 10px;
-      &:hover ~ .go_calender {
-        left: 7px;
-        top: -5px;
-      }
-    }
-    .go_calender {
-      left: 7px;
-      top: 50px;
-      width: 60px;
-      text-align: center;
-      border-radius: 15px;
-      &:hover {
-        left: 7px;
-        top: -5px;
-      }
-    }
-    .map {
-      width: 40px;
-      &:hover ~ .go_map {
-        top: 15px;
-      }
-    }
-    .go_map {
-      width: 25px;
-      top: 55px;
-      &:hover {
-        top: 15px;
-      }
-    }
-    .content_first {
-      margin: 80px 0 10px 0;
-      .title_date {
-        font-size: 22px;
-        width: 98%;
-        .title {
-          margin-left: 20px;
+    overflow: hidden;
+    .view_box {
+      .logo {
+        width: 70px;
+        left: 10px;
+        &:hover ~ .go_calender {
+          left: 7px;
+          top: 15px;
         }
-        .date {
+      }
+      .go_calender {
+        left: 7px;
+        top: 50px;
+        width: 60px;
+        text-align: center;
+        border-radius: 15px;
+        font-size: 12px;
+        &:hover {
+          left: 7px;
+          top: 15px;
+        }
+      }
+      .map {
+        width: 40px;
+        &:hover ~ .go_map {
+          top: 20px;
+          right: 8px;
+        }
+      }
+      .go_map {
+        width: 20px;
+        top: 55px;
+        font-size: 10px;
+        right: 8px;
+        &:hover {
+          top: 20px;
+          right: 8px;
+        }
+      }
+      .content_first {
+        margin: 80px 0 10px 0;
+        height: 80px;
+        .title_date {
           font-size: 18px;
-          margin-right: 15px;
+          width: 98%;
+          .title {
+            margin-left: 25px;
+          }
+          .date {
+            font-size: 16px;
+            margin-right: 20px;
+          }
+        }
+        .place {
+          font-size: 12px;
+          height: 40px;
+          width: 98%;
+          margin-bottom: 5px;
+          .address {
+            margin-left: 25px;
+          }
+          .place_name {
+            margin-right: 20px;
+            font-size: 14px;
+          }
         }
       }
-      .place {
-        font-size: 14px;
-        height: 40px;
-        width: 98%;
-        .address {
-          margin-left: 20px;
+      .text {
+        margin: 30px 0 0 0;
+      }
+      .buttons {
+        margin: 0;
+        button {
+          width: 150px;
+          height: 40px;
+          font-size: 16px;
         }
-        .place_name {
-          margin-right: 20px;
-          font-size: 15px;
+      }
+    }
+    .delete_box {
+      height: 130px;
+      width: 190px;
+      p {
+        font-size: 16px;
+      }
+      .buttons {
+        button {
+          font-size: 14px;
+          width: 80px;
+          height: 40px;
         }
       }
     }

@@ -231,7 +231,10 @@ const AddContent = () => {
           </div>
           <div className='colors'>
             <h3>배경색</h3>
-            <div className={`color_code ${clickColor && 'color_box_change'}`}>
+            <div
+              className={`color_code ${clickColor && 'color_box_change'}`}
+              style={{ backgroundColor: color }}
+            >
               <span>{color}</span>
               <img
                 src='/palette.svg'

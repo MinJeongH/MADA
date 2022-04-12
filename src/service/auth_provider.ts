@@ -22,7 +22,7 @@ export const Join = async (email:string, password:string):Promise<ICreateReturn>
   } catch(error){
     return {
       ret:false,
-      message:'문제가 발생하였습니다. 다시 시도해주세요'
+      message:'이메일 형식이 아니거나 비밀번호가 너무 짧습니다.'
     }
   }
 }

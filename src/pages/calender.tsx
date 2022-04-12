@@ -34,6 +34,7 @@ const Calender = () => {
   );
   const [weeks, setWeeks] = useState([0]);
   const [daysArr, setDaysArr] = useState<IDaysInfo[][]>();
+  const [clickMoveAdd, setClickMoveAdd] = useState(false);
 
   const goToMap = () => {
     nav('/map', { state: { id: states.id } });
@@ -174,13 +175,20 @@ const Calender = () => {
                   ${!v.isNowMonth && 'not_now_month'} 
                   ${v.isToday && 'today'}
                   ${v.isSelectday && 'select_day'}`}
-                  onClick={() => setSelectDay(v.selectedDays)}
+                  onClick={() => {
+                    setSelectDay(v.selectedDays);
+                    setClickMoveAdd(true);
+                    setTimeout(() => {
+                      setClickMoveAdd(false);
+                    }, 800);
+                  }}
                 >
                   <span>{v.days}</span>
                   {contentKey
                     .filter(
                       (key) => content && content[key]?.date === v.selectedDays
                     )
+                    .filter((key, idx) => idx < 2)
                     .map((key) => (
                       <div
                         key={key}
@@ -201,7 +209,7 @@ const Calender = () => {
         </tbody>
       </table>
       <img
-        className='add'
+        className={`add ${clickMoveAdd && 'move_add'}`}
         src='/content_add.svg'
         alt='add_icon'
         onClick={goToAdd}

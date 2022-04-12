@@ -36,62 +36,62 @@ const JoinEmail = () => {
     setTimeout(() => {
       setRipple(false);
     }, 800);
-    if (clickAgree === true) {
+    if (inputRefEmail.current?.value === '') {
       setClickEvent((prev) => {
-        const newVal = { ...prev, emailClick: false, pwClick: false };
-        newVal.checkClick = false;
-        return newVal;
-      });
-      if (inputRefEmail.current?.value === '') {
-        setClickEvent((prev) => {
-          const newVal = { ...prev, checkClick: false, pwClick: false };
-          newVal.emailClick = true;
-          return newVal;
-        });
-        setClickAni(true);
-        setTimeout(() => {
-          setClickAni(false);
-        }, 500);
-      } else if (inputRefEmail.current?.value) {
-        setClickEvent((prev) => {
-          const newVal = { ...prev, checkClick: false, pwClick: false };
-          newVal.emailClick = false;
-          return newVal;
-        });
-        if (inputRefPassword.current?.value === '') {
-          setClickEvent((prev) => {
-            const newVal = { ...prev, checkClick: false, emailClick: false };
-            newVal.pwClick = true;
-            return newVal;
-          });
-          setClickAni(true);
-          setTimeout(() => {
-            setClickAni(false);
-          }, 500);
-        } else if (inputRefPassword.current?.value) {
-          setClickEvent((prev) => {
-            const newVal = { ...prev, checkClick: false, emailClick: false };
-            newVal.pwClick = false;
-            return newVal;
-          });
-          const result = await Join(
-            inputRefEmail.current.value,
-            inputRefPassword.current?.value
-          );
-          if (!result.ret) alert(result.message);
-          else goToSuccess();
-        }
-      }
-    } else {
-      setClickEvent((prev) => {
-        const newVal = { ...prev, emailClick: false, pwClick: false };
-        newVal.checkClick = true;
+        const newVal = { ...prev, checkClick: false, pwClick: false };
+        newVal.emailClick = true;
         return newVal;
       });
       setClickAni(true);
       setTimeout(() => {
         setClickAni(false);
       }, 500);
+    } else if (inputRefEmail.current?.value) {
+      setClickEvent((prev) => {
+        const newVal = { ...prev, checkClick: false, pwClick: false };
+        newVal.emailClick = false;
+        return newVal;
+      });
+      if (inputRefPassword.current?.value === '') {
+        setClickEvent((prev) => {
+          const newVal = { ...prev, checkClick: false, emailClick: false };
+          newVal.pwClick = true;
+          return newVal;
+        });
+        setClickAni(true);
+        setTimeout(() => {
+          setClickAni(false);
+        }, 500);
+      } else if (inputRefPassword.current?.value) {
+        setClickEvent((prev) => {
+          const newVal = { ...prev, checkClick: false, emailClick: false };
+          newVal.pwClick = false;
+          return newVal;
+        });
+        if (clickAgree === true) {
+          setClickEvent((prev) => {
+            const newVal = { ...prev, emailClick: false, pwClick: false };
+            newVal.checkClick = false;
+            return newVal;
+          });
+          const result = await Join(
+            inputRefEmail.current.value,
+            inputRefPassword.current.value
+          );
+          if (!result.ret) alert(result.message);
+          else goToSuccess();
+        } else {
+          setClickEvent((prev) => {
+            const newVal = { ...prev, emailClick: false, pwClick: false };
+            newVal.checkClick = true;
+            return newVal;
+          });
+          setClickAni(true);
+          setTimeout(() => {
+            setClickAni(false);
+          }, 500);
+        }
+      }
     }
   };
 

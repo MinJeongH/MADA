@@ -21,6 +21,7 @@ const MapView = () => {
 
   const [content, setContent] = useState<IGetContent>();
   const [contentKey, setContentKey] = useState<string[]>([]);
+  const [searchTitle, setSearchTitle] = useState('');
   const [viewOverlay, setViewOverlay] = useState<boolean[]>([]);
   const [dragging, setDragging] = useState(false);
   const [centerGeocode, setCenterGeocode] = useState<ICenterGeocode>({
@@ -73,7 +74,14 @@ const MapView = () => {
           로그아웃
         </p>
         <label htmlFor='search'>
-          <input type='text' name='search' id='search' />
+          <input
+            type='text'
+            name='search'
+            id='search'
+            value={searchTitle}
+            onChange={(e) => setSearchTitle(e.target.value)}
+            placeholder={'search place...'}
+          />
           <img src='/search.svg' alt='search_icon' />
         </label>
         <img
