@@ -814,30 +814,35 @@
     top: 30px;
     z-index: 10;
     transition: all 400ms ease;
-    .logo {
-      width: 70px;
-      height: auto;
-      cursor: pointer;
-      &:hover ~ .logout {
-        opacity: 1;
-        left: 60px;
-        top: 6px;
+    .logo_logout {
+      position: relative;
+      .logo {
+        width: 70px;
+        height: auto;
+        cursor: pointer;
+        &:hover ~ .logout {
+          opacity: 1;
+          left: -5px;
+          top: -5px;
+        }
       }
-    }
-    .logout {
-      position: absolute;
-      left: 60px;
-      top: 65px;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 5px 8px;
-      border-radius: 20px;
-      opacity: 0;
-      transition: all 400ms;
-      cursor: pointer;
-      &:hover {
-        opacity: 1;
-        left: 60px;
-        top: 6px;
+      .logout {
+        position: absolute;
+        width: 65px;
+        text-align: center;
+        left: -5px;
+        top: 65px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 5px 8px;
+        border-radius: 20px;
+        opacity: 0;
+        transition: all 400ms;
+        cursor: pointer;
+        &:hover {
+          opacity: 1;
+          left: -5px;
+          top: -5px;
+        }
       }
     }
     label {
@@ -869,37 +874,38 @@
         transform: scale(1.03);
       }
     }
-    .calender {
-      width: 45px;
-      height: auto;
-      background-color: transparent;
-      cursor: pointer;
-      &:hover ~ .go_calender {
-        opacity: 1;
-        right: 56px;
-        top: 25px;
+    .calender_img {
+      position: relative;
+      .calender_icon {
+        width: 45px;
+        height: 45px;
+        background-color: transparent;
+        cursor: pointer;
+        &:hover ~ .go_calender {
+          opacity: 1;
+          right: -13px;
+          top: 12px;
+        }
       }
-    }
-    .go_calender {
-      position: absolute;
-      text-align: center;
-      font-size: 12px;
-      right: 56px;
-      top: 75px;
-      margin: 0;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 5px 8px;
-      border-radius: 20px;
-      opacity: 0;
-      transition: all 500ms;
-      cursor: pointer;
-      &:hover {
-        opacity: 1;
-        right: 56px;
-        top: 25px;
-      }
-      &:hover ~ .map {
-        animation: none;
+      .go_calender {
+        position: absolute;
+        text-align: center;
+        width: 55px;
+        font-size: 12px;
+        right: -13px;
+        top: 75px;
+        margin: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 5px 8px;
+        border-radius: 20px;
+        opacity: 0;
+        transition: all 500ms;
+        cursor: pointer;
+        &:hover {
+          opacity: 1;
+          right: -13px;
+          top: 12px;
+        }
       }
     }
     &.view {
@@ -1505,8 +1511,11 @@
       margin: 30px 0;
       box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
-      padding-left: 15px;
+      padding: 20px 36px;
       border-radius: 10px;
+      img {
+        max-width: 80%;
+      }
     }
     .buttons {
       display: flex;
@@ -1646,26 +1655,17 @@
   }
   .map_container {
     .header {
-      .logo {
-        &:hover ~ .logout {
-          left: 50px;
+      .calender_img {
+        .calender_icon {
+          &:hover ~ .go_calender {
+            right: -12px;
+          }
         }
-      }
-      .logout {
-        left: 50px;
-        &:hover {
-          left: 50px;
-        }
-      }
-      .calender {
-        &:hover ~ .go_calender {
-          right: 42px;
-        }
-      }
-      .go_calender {
-        right: 42px;
-        &:hover {
-          right: 42px;
+        .go_calender {
+          right: -12px;
+          &:hover {
+            right: -12px;
+          }
         }
       }
     }
@@ -1966,20 +1966,14 @@
       top: 15px;
       width: 90%;
       height: 50px;
-      .logo {
-        width: 50px;
-        &:hover ~ .logout {
-          left: 29px;
-          top: 3px;
+      .logo_logout {
+        .logo {
+          width: 50px;
         }
-      }
-      .logout {
-        left: 29px;
-        top: 45px;
-        font-size: 12px;
-        &:hover {
-          left: 29px;
-          top: 3px;
+        .logout {
+          width: 50px;
+          top: 45px;
+          font-size: 12px;
         }
       }
       label {
@@ -1993,21 +1987,21 @@
           width: 25px;
         }
       }
-      .calender {
-        width: 30px;
-        &:hover ~ .go_calender {
-          right: 34px;
-          top: 10px;
+      .calender_img {
+        .calender_icon {
+          width: 30px;
+          &:hover ~ .go_calender {
+            right: -2px;
+          }
         }
-      }
-      .go_calender {
-        right: 34px;
-        top: 55px;
-        width: 20px;
-        font-size: 10px;
-        &:hover {
-          right: 34px;
-          top: 10px;
+        .go_calender {
+          top: 55px;
+          width: 20px;
+          font-size: 10px;
+          right: -2px;
+          &:hover {
+            right: -2px;
+          }
         }
       }
     }
@@ -2244,6 +2238,7 @@
       }
       .text {
         margin: 30px 0 0 0;
+        padding: 10px 24px;
       }
       .buttons {
         margin: 0;

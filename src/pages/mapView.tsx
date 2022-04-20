@@ -64,15 +64,17 @@ const MapView = () => {
   return (
     <section className='map_container'>
       <div className={`header ${dragging && 'view'}`}>
-        <img
-          className='logo'
-          src='/logo.svg'
-          alt='logo_icon'
-          onClick={() => nav('/')}
-        />
-        <p className='logout' onClick={() => nav('/')}>
-          로그아웃
-        </p>
+        <div className='logo_logout'>
+          <img
+            className='logo'
+            src='/logo.svg'
+            alt='logo_icon'
+            onClick={() => nav('/')}
+          />
+          <p className='logout' onClick={() => nav('/')}>
+            로그아웃
+          </p>
+        </div>
         <label htmlFor='search'>
           <input
             type='text'
@@ -84,15 +86,17 @@ const MapView = () => {
           />
           <img src='/search.svg' alt='search_icon' />
         </label>
-        <img
-          className='calender'
-          src='/Date.svg'
-          alt='calender_icon'
-          onClick={goToCalender}
-        />
-        <p className='go_calender' onClick={goToCalender}>
-          달력 이동
-        </p>
+        <div className='calender_img'>
+          <img
+            className='calender_icon'
+            src='/Date.svg'
+            alt='calender_icon'
+            onClick={goToCalender}
+          />
+          <p className='go_calender' onClick={goToCalender}>
+            달력 이동
+          </p>
+        </div>
       </div>
       <img
         className={`add ${dragging && 'add_view'}`}
